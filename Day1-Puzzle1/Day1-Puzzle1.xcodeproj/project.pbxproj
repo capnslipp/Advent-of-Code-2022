@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		FA57885B29494887005793A3 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA57885A29494887005793A3 /* main.swift */; };
+		FA57886929494B0D005793A3 /* metacosm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA57886829494B0D005793A3 /* metacosm.framework */; };
+		FA57886A29494B0D005793A3 /* metacosm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FA57886829494B0D005793A3 /* metacosm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -20,11 +22,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
+		FA57886B29494B0E005793A3 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				FA57886A29494B0D005793A3 /* metacosm.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		FA57885729494887005793A3 /* Day1-Puzzle1 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Day1-Puzzle1"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA57885A29494887005793A3 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		FA57886829494B0D005793A3 /* metacosm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = metacosm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,6 +46,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA57886929494B0D005793A3 /* metacosm.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -43,6 +58,7 @@
 			children = (
 				FA57885929494887005793A3 /* Source */,
 				FA57885829494887005793A3 /* Products */,
+				FA57886729494B0D005793A3 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -62,6 +78,14 @@
 			path = Source;
 			sourceTree = "<group>";
 		};
+		FA57886729494B0D005793A3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FA57886829494B0D005793A3 /* metacosm.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -72,6 +96,7 @@
 				FA57885329494887005793A3 /* Sources */,
 				FA57885429494887005793A3 /* Frameworks */,
 				FA57885529494887005793A3 /* CopyFiles */,
+				FA57886B29494B0E005793A3 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
