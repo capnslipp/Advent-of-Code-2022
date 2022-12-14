@@ -4,4 +4,11 @@
    <FileRef
       location = "group:Day1-Puzzle1/Day1-Puzzle1.xcodeproj">
    </FileRef>
+   <Group
+      location = "container:"
+      name = "Frameworks and Libraries">
+      <FileRef
+         location = "group:../metacosm/metacosm.xcodeproj">
+      </FileRef>
+   </Group>
 </Workspace>
