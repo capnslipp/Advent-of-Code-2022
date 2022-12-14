@@ -1,0 +1,23 @@
+{
+  "pins" : [
+    {
+      "identity" : "nilcoalescingassignmentoperators",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/capnslipp/NilCoalescingAssignmentOperators.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "cfd1d0f56dfd5d889c1b5ad24054aa1e947d4f79"
+      }
+    },
+    {
+      "identity" : "with",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/capnslipp/With.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "1f54795590bdce666a529a93d71b86e5ec043aaa"
+      }
+    }
+  ],
+  "version" : 2
+}
