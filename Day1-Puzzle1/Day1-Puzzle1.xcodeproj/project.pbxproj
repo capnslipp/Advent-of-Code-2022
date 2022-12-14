@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		FA182A3C2949871E00A6EA67 /* HelloWorld in Frameworks */ = {isa = PBXBuildFile; productRef = FA182A3B2949871E00A6EA67 /* HelloWorld */; };
 		FA090AC02949EC580056EAAE /* With in Frameworks */ = {isa = PBXBuildFile; productRef = FA090ABF2949EC580056EAAE /* With */; };
 		FA090AC32949EC720056EAAE /* NilCoalescingAssignmentOperators in Frameworks */ = {isa = PBXBuildFile; productRef = FA090AC22949EC720056EAAE /* NilCoalescingAssignmentOperators */; };
+		FA3BB4032949E44A00D860E2 /* Elf in Frameworks */ = {isa = PBXBuildFile; productRef = FA3BB4022949E44A00D860E2 /* Elf */; };
 		FA57885B29494887005793A3 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA57885A29494887005793A3 /* main.swift */; };
 /* End PBXBuildFile section */
 
@@ -35,9 +35,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FA182A3C2949871E00A6EA67 /* HelloWorld in Frameworks */,
 				FA090AC32949EC720056EAAE /* NilCoalescingAssignmentOperators in Frameworks */,
 				FA090AC02949EC580056EAAE /* With in Frameworks */,
+				FA3BB4032949E44A00D860E2 /* Elf in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -93,9 +93,9 @@
 			);
 			name = "Day1-Puzzle1";
 			packageProductDependencies = (
-				FA182A3B2949871E00A6EA67 /* HelloWorld */,
 				FA090ABF2949EC580056EAAE /* With */,
 				FA090AC22949EC720056EAAE /* NilCoalescingAssignmentOperators */,
+				FA3BB4022949E44A00D860E2 /* Elf */,
 			);
 			productName = "Day1-Puzzle1";
 			productReference = FA57885729494887005793A3 /* Day1-Puzzle1 */;
@@ -324,10 +324,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		FA182A3B2949871E00A6EA67 /* HelloWorld */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = HelloWorld;
-		};
 		FA090ABF2949EC580056EAAE /* With */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = FA090ABE2949EC580056EAAE /* XCRemoteSwiftPackageReference "With" */;
@@ -337,6 +333,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = FA090AC12949EC720056EAAE /* XCRemoteSwiftPackageReference "NilCoalescingAssignmentOperators" */;
 			productName = NilCoalescingAssignmentOperators;
+		};
+		FA3BB4022949E44A00D860E2 /* Elf */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Elf;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
