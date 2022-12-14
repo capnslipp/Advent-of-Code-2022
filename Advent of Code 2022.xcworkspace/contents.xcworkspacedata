@@ -5,6 +5,10 @@
       location = "group:Day1-Puzzle1/Day1-Puzzle1.xcodeproj">
    </FileRef>
    <Group
+      location = "container:Models"
+      name = "Models">
+   </Group>
+   <Group
       location = "container:"
       name = "Frameworks and Libraries">
       <FileRef
