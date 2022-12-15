@@ -7,56 +7,48 @@
 
 import Foundation
 import Elf
+import NilCoalescingAssignmentOperators
 
 
+//let inputFilename = "input.example"
+let inputFilename = "input"
+let inputURL = Bundle.main.url(forResource: inputFilename, withExtension: "")!
+let inputContents = try! String(contentsOf: inputURL)
+let inputLines = inputContents.components(separatedBy: .newlines)
 
-let party = PartyOfElves(elves: [
-	Elf(
-		name: "Elf #1",
-		foodPack: FoodPack(
-			foodItems: [
-				FoodItem(calorieCount: CalorieCount(value: 1000)),
-				FoodItem(calorieCount: CalorieCount(value: 2000)),
-				FoodItem(calorieCount: CalorieCount(value: 3000)),
-			]
+var party = PartyOfElves()
+
+var currentElf: Elf?
+var elfLinesBuffer: [String] = []
+
+var elfNameCounter = 1
+
+for inputLine in inputLines {
+	if !inputLine.isEmpty {
+		elfLinesBuffer.append(inputLine)
+	} else {
+		createElf(fromLines: elfLinesBuffer)
+		
+		elfLinesBuffer = []
+	}
+}
+
+
+func createElf(fromLines lines: [String])
+{
+	let foodItems = lines.map{ Int($0)! }.map{ FoodItem(calorieCountValue: $0) }
+	
+	party.add(
+		elf: Elf(
+			name: "Elf #\(elfNameCounter)",
+			foodPack: FoodPack(
+				foodItems: foodItems
+			)
 		)
-	),
-	Elf(
-		name: "Elf #2",
-		foodPack: FoodPack(
-			foodItems: [
-				FoodItem(calorieCount: CalorieCount(value: 4000)),
-			]
-		)
-	),
-	Elf(
-		name: "Elf #3",
-		foodPack: FoodPack(
-			foodItems: [
-				FoodItem(calorieCount: CalorieCount(value: 5000)),
-				FoodItem(calorieCount: CalorieCount(value: 6000)),
-			]
-		)
-	),
-	Elf(
-		name: "Elf #4",
-		foodPack: FoodPack(
-			foodItems: [
-				FoodItem(calorieCount: CalorieCount(value: 7000)),
-				FoodItem(calorieCount: CalorieCount(value: 8000)),
-				FoodItem(calorieCount: CalorieCount(value: 9000)),
-			]
-		)
-	),
-	Elf(
-		name: "Elf #5",
-		foodPack: FoodPack(
-			foodItems: [
-				FoodItem(calorieCount: CalorieCount(value: 10000)),
-			]
-		)
-	),
-])
+	)
+	
+	elfNameCounter += 1
+}
 
 
 for elf in party.elves {
