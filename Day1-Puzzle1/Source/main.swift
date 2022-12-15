@@ -10,7 +10,7 @@ import Elf
 
 
 
-let elves = [
+let party = PartyOfElves(elves: [
 	Elf(
 		name: "Elf #1",
 		foodPack: FoodPack(
@@ -56,9 +56,15 @@ let elves = [
 			]
 		)
 	),
-]
+])
 
 
-for (elfI, elf) in elves.enumerated() {
-	print("Elf #\(elfI + 1): \(elf.foodPack.totalCalorieCount.value) calories")
+for elf in party.elves {
+	print("\(elf.name): \(elf.foodPack.totalCalorieCount.value) calories")
+}
+
+if let highestCalorieCountElf = party.elfWithMostCaloriesInFoodPack {
+	print("Elf with highest calorie count in food pack: \(highestCalorieCountElf.name): \(highestCalorieCountElf.foodPack.totalCalorieCount.value) calories")
+} else {
+	print("Elf with highest calorie count in food pack: N/A— no elves")
 }
