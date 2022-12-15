@@ -60,5 +60,5 @@ let elves = [
 
 
 for (elfI, elf) in elves.enumerated() {
-	print("Elf #\(elfI + 1): \(elf.foodPack.totalCalorieCountValue) calories")
+	print("Elf #\(elfI + 1): \(elf.foodPack.totalCalorieCount.value) calories")
 }
