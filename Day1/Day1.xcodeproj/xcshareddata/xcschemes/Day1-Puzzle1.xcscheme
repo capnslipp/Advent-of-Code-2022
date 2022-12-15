@@ -17,7 +17,7 @@
                BlueprintIdentifier = "FA57885629494887005793A3"
                BuildableName = "Day1-Puzzle1"
                BlueprintName = "Day1-Puzzle1"
-               ReferencedContainer = "container:Day1-Puzzle1.xcodeproj">
+               ReferencedContainer = "container:Day1.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -48,7 +48,7 @@
             BlueprintIdentifier = "FA57885629494887005793A3"
             BuildableName = "Day1-Puzzle1"
             BlueprintName = "Day1-Puzzle1"
-            ReferencedContainer = "container:Day1-Puzzle1.xcodeproj">
+            ReferencedContainer = "container:Day1.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -65,7 +65,7 @@
             BlueprintIdentifier = "FA57885629494887005793A3"
             BuildableName = "Day1-Puzzle1"
             BlueprintName = "Day1-Puzzle1"
-            ReferencedContainer = "container:Day1-Puzzle1.xcodeproj">
+            ReferencedContainer = "container:Day1.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
