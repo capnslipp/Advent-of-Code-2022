@@ -39,7 +39,7 @@ public class CalorieCountedFoodPacks : metacosmModel, CalorieCountedFoodPacksish
 	
 	public init(foodPacks: [FoodPackish], mostLimit: RecordCountLimitish? = nil, leastLimit: RecordCountLimitish? = nil) {
 		_foodPacks = foodPacks
-		defer { recalcFoodPackWithMostCaloriesInFoodPack() }
+		defer { queueRecalcOfFoodPacks() }
 		
 		self.mostLimit = mostLimit ?? RecordCountLimit()
 		self.leastLimit = leastLimit ?? RecordCountLimit()
@@ -51,7 +51,13 @@ public class CalorieCountedFoodPacks : metacosmModel, CalorieCountedFoodPacksish
 	// MARK: `FoodPackish` Array
 	
 	public var _foodPacks: [FoodPackish] = []
-	public var foodPacks: [FoodPackish] { _foodPacks.map{ $0.surrogate() } }
+	public var foodPacks: [FoodPackish] {
+		get { _foodPacks.map{ $0.surrogate() } }
+		set {
+			_foodPacks = newValue
+			queueRecalcOfFoodPacks()
+		}
+	}
 	
 	public var isEmpty: Bool {
 		_foodPacks.isEmpty
@@ -60,81 +66,94 @@ public class CalorieCountedFoodPacks : metacosmModel, CalorieCountedFoodPacksish
 	
 	// MARK: Limits
 	
-	public private(set) var mostLimit: RecordCountLimitish
+	public let mostLimit: RecordCountLimitish
 	
-	public private(set) var leastLimit: RecordCountLimitish
+	public let leastLimit: RecordCountLimitish
 	
 	
 	// MARK: Calculated Most/Least Info
+	
+	public func queueRecalcOfFoodPacks() {
+		_foodPacksWithMostCalories = nil
+		_foodPacksWithLeastCalories = nil
+	}
 	
 	private typealias FoodPackCalorieCountPair = ( foodPack: FoodPackish, calorieCount: CalorieCountish )
 	private static let _noFoodPackCalorieCountSentinel: FoodPackCalorieCountPair = ( FoodPack().surrogate(), CalorieCount(value: CalorieCount.minimumValue).surrogate() )
 	
 	private var _foodPacksWithMostCalories: [FoodPackCalorieCountPair]? = nil
-	private func recalcFoodPackWithMostCaloriesInFoodPack() {
-		_foodPacksWithMostCalories = nil
-	}
 	public var foodPacksWithMostCalories: [FoodPackish] {
-		let mostLimitValue = self.mostLimit.value
-		
-		_foodPacksWithMostCalories ??= {
-			var highest: [FoodPackCalorieCountPair] = []
-			
-			for aFoodPack in _foodPacks {
-				if highest.isEmpty {
-					let newPair = ( aFoodPack, aFoodPack.totalCalorieCount )
-					highest = [ newPair ]
-				}
-				else if (highest.count < mostLimitValue) || (aFoodPack.totalCalorieCount > highest.last!.calorieCount) {
-					let newPair = ( aFoodPack, aFoodPack.totalCalorieCount )
-					
-					let justHigherThanValueAtIndex = (highest.lastIndex{ aFoodPack.totalCalorieCount < $0.calorieCount } ?? -1) + 1
-					highest.insert(newPair, at: justHigherThanValueAtIndex)
-				}
-				
-				if highest.count > mostLimitValue {
-					highest.removeLast()
-				}
-			}
-			
-			return highest
-		}()
+		if _foodPacksWithMostCalories == nil {
+			recalcFoodPacksWithMostCalories()
+		} else if self.mostLimit.value > _foodPacksWithMostCalories!.count {
+			recalcFoodPacksWithMostCalories()
+		}
 		
 		return _foodPacksWithMostCalories!.map{ $0.foodPack } as! [FoodPackish]
 	}
 	
-	
-	private var _foodPacksWithLeastCalories: [FoodPackCalorieCountPair]? = nil
-	private func recalcFoodPackWithLeastCaloriesInFoodPack() {
-		_foodPacksWithLeastCalories = nil
-	}
-	public var foodPacksWithLeastCalories: [FoodPackish] {
-		let leastLimitValue = self.leastLimit.value
+	private func recalcFoodPacksWithMostCalories()
+	{
+		let mostLimitValue = self.mostLimit.value
 		
-		_foodPacksWithLeastCalories ??= {
-			var lowest: [FoodPackCalorieCountPair] = []
-			
-			for aFoodPack in _foodPacks {
-				if lowest.isEmpty {
-					let newPair = ( aFoodPack, aFoodPack.totalCalorieCount )
-					lowest = [ newPair ]
-				}
-				else if (lowest.count < leastLimitValue) || (aFoodPack.totalCalorieCount < lowest.last!.calorieCount) {
-					let newPair = ( aFoodPack, aFoodPack.totalCalorieCount )
-					
-					let justLowerThanValueAtIndex = (lowest.lastIndex{ aFoodPack.totalCalorieCount > $0.calorieCount } ?? -1) + 1
-					lowest.insert(newPair, at: justLowerThanValueAtIndex)
-				}
+		var highest: [FoodPackCalorieCountPair] = []
+		
+		for aFoodPack in _foodPacks {
+			if highest.isEmpty {
+				let newPair = ( aFoodPack, aFoodPack.totalCalorieCount )
+				highest = [ newPair ]
+			}
+			else if (highest.count < mostLimitValue) || (aFoodPack.totalCalorieCount > highest.last!.calorieCount) {
+				let newPair = ( aFoodPack, aFoodPack.totalCalorieCount )
 				
-				if lowest.count > leastLimitValue {
-					lowest.removeLast()
-				}
+				let justHigherThanValueAtIndex = (highest.lastIndex{ aFoodPack.totalCalorieCount < $0.calorieCount } ?? -1) + 1
+				highest.insert(newPair, at: justHigherThanValueAtIndex)
 			}
 			
-			return lowest
-		}()
+			if highest.count > mostLimitValue {
+				highest.removeLast()
+			}
+		}
+		
+		_foodPacksWithMostCalories = highest
+	}
+	
+	
+	private var _foodPacksWithLeastCalories: [FoodPackCalorieCountPair]? = nil
+	public var foodPacksWithLeastCalories: [FoodPackish] {
+		if _foodPacksWithLeastCalories == nil {
+			recalcFoodPacksWithLeastCalories()
+		} else if self.leastLimit.value > _foodPacksWithLeastCalories!.count {
+			recalcFoodPacksWithLeastCalories()
+		}
 		
 		return _foodPacksWithLeastCalories!.map{ $0.foodPack } as! [FoodPackish]
+	}
+	
+	private func recalcFoodPacksWithLeastCalories()
+	{
+		let leastLimitValue = self.leastLimit.value
+		
+		var lowest: [FoodPackCalorieCountPair] = []
+		
+		for aFoodPack in _foodPacks {
+			if lowest.isEmpty {
+				let newPair = ( aFoodPack, aFoodPack.totalCalorieCount )
+				lowest = [ newPair ]
+			}
+			else if (lowest.count < leastLimitValue) || (aFoodPack.totalCalorieCount < lowest.last!.calorieCount) {
+				let newPair = ( aFoodPack, aFoodPack.totalCalorieCount )
+				
+				let justLowerThanValueAtIndex = (lowest.lastIndex{ aFoodPack.totalCalorieCount > $0.calorieCount } ?? -1) + 1
+				lowest.insert(newPair, at: justLowerThanValueAtIndex)
+			}
+			
+			if lowest.count > leastLimitValue {
+				lowest.removeLast()
+			}
+		}
+		
+		_foodPacksWithLeastCalories = lowest
 	}
 	
 	
