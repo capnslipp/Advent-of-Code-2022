@@ -21,7 +21,10 @@ public protocol CalorieCountedFoodPacksish : metacosmModelish
 	var mostLimit: RecordCountLimitish { get }
 	var leastLimit: RecordCountLimitish { get }
 	
+	var foodPacksSortedByMostCalories: FoodPacksSortedish { get }
 	var foodPacksWithMostCalories: [FoodPackish] { get }
+	
+	var foodPacksSortedByLeastCalories: FoodPacksSortedish { get }
 	var foodPacksWithLeastCalories: [FoodPackish] { get }
 }
 
@@ -39,7 +42,6 @@ public class CalorieCountedFoodPacks : metacosmModel, CalorieCountedFoodPacksish
 	
 	public init(foodPacks: [FoodPackish], mostLimit: RecordCountLimitish? = nil, leastLimit: RecordCountLimitish? = nil) {
 		_foodPacks = foodPacks
-		defer { queueRecalcOfFoodPacks() }
 		
 		self.mostLimit = mostLimit ?? RecordCountLimit()
 		self.leastLimit = leastLimit ?? RecordCountLimit()
@@ -55,7 +57,8 @@ public class CalorieCountedFoodPacks : metacosmModel, CalorieCountedFoodPacksish
 		get { _foodPacks.map{ $0.surrogate() } }
 		set {
 			_foodPacks = newValue
-			queueRecalcOfFoodPacks()
+			_foodPacksSortedByMostCaloriesModel_lazyStorage?.foodPacks = _foodPacks
+			_foodPacksSortedByLeastCaloriesModel_lazyStorage?.foodPacks = _foodPacks
 		}
 	}
 	
@@ -73,88 +76,32 @@ public class CalorieCountedFoodPacks : metacosmModel, CalorieCountedFoodPacksish
 	
 	// MARK: Calculated Most/Least Info
 	
-	public func queueRecalcOfFoodPacks() {
-		_foodPacksWithMostCalories = nil
-		_foodPacksWithLeastCalories = nil
+	var _foodPacksSortedByMostCaloriesModel_lazyStorage: FoodPacksSorted?
+	var _foodPacksSortedByMostCaloriesModel: FoodPacksSorted {
+		_foodPacksSortedByMostCaloriesModel_lazyStorage ??= FoodPacksSorted(
+			foodPacks: _foodPacks,
+			comparator: { (earlier, later) in earlier.totalCalorieCount > later.totalCalorieCount },
+			limit: self.mostLimit
+		)
+		return _foodPacksSortedByMostCaloriesModel_lazyStorage!
 	}
+	public var foodPacksSortedByMostCalories: FoodPacksSortedish { _foodPacksSortedByMostCaloriesModel.surrogate() }
 	
-	private typealias FoodPackCalorieCountPair = ( foodPack: FoodPackish, calorieCount: CalorieCountish )
-	private static let _noFoodPackCalorieCountSentinel: FoodPackCalorieCountPair = ( FoodPack().surrogate(), CalorieCount(value: CalorieCount.minimumValue).surrogate() )
+	public var foodPacksWithMostCalories: [FoodPackish] { _foodPacksSortedByMostCaloriesModel.sortedFoodPacks }
 	
-	private var _foodPacksWithMostCalories: [FoodPackCalorieCountPair]? = nil
-	public var foodPacksWithMostCalories: [FoodPackish] {
-		if _foodPacksWithMostCalories == nil {
-			recalcFoodPacksWithMostCalories()
-		} else if self.mostLimit.value > _foodPacksWithMostCalories!.count {
-			recalcFoodPacksWithMostCalories()
-		}
-		
-		return _foodPacksWithMostCalories!.map{ $0.foodPack } as! [FoodPackish]
+	
+	private var _foodPacksSortedByLeastCaloriesModel_lazyStorage: FoodPacksSorted?
+	private var _foodPacksSortedByLeastCaloriesModel: FoodPacksSorted {
+		_foodPacksSortedByLeastCaloriesModel_lazyStorage ??= FoodPacksSorted(
+			foodPacks: _foodPacks,
+			comparator: { (earlier, later) in earlier.totalCalorieCount < later.totalCalorieCount },
+			limit: self.leastLimit
+		)
+		return _foodPacksSortedByLeastCaloriesModel_lazyStorage!
 	}
+	public var foodPacksSortedByLeastCalories: FoodPacksSortedish { _foodPacksSortedByLeastCaloriesModel.surrogate() }
 	
-	private func recalcFoodPacksWithMostCalories()
-	{
-		let mostLimitValue = self.mostLimit.value
-		
-		var highest: [FoodPackCalorieCountPair] = []
-		
-		for aFoodPack in _foodPacks {
-			if highest.isEmpty {
-				let newPair = ( aFoodPack, aFoodPack.totalCalorieCount )
-				highest = [ newPair ]
-			}
-			else if (highest.count < mostLimitValue) || (aFoodPack.totalCalorieCount > highest.last!.calorieCount) {
-				let newPair = ( aFoodPack, aFoodPack.totalCalorieCount )
-				
-				let justHigherThanValueAtIndex = (highest.lastIndex{ aFoodPack.totalCalorieCount < $0.calorieCount } ?? -1) + 1
-				highest.insert(newPair, at: justHigherThanValueAtIndex)
-			}
-			
-			if highest.count > mostLimitValue {
-				highest.removeLast()
-			}
-		}
-		
-		_foodPacksWithMostCalories = highest
-	}
-	
-	
-	private var _foodPacksWithLeastCalories: [FoodPackCalorieCountPair]? = nil
-	public var foodPacksWithLeastCalories: [FoodPackish] {
-		if _foodPacksWithLeastCalories == nil {
-			recalcFoodPacksWithLeastCalories()
-		} else if self.leastLimit.value > _foodPacksWithLeastCalories!.count {
-			recalcFoodPacksWithLeastCalories()
-		}
-		
-		return _foodPacksWithLeastCalories!.map{ $0.foodPack } as! [FoodPackish]
-	}
-	
-	private func recalcFoodPacksWithLeastCalories()
-	{
-		let leastLimitValue = self.leastLimit.value
-		
-		var lowest: [FoodPackCalorieCountPair] = []
-		
-		for aFoodPack in _foodPacks {
-			if lowest.isEmpty {
-				let newPair = ( aFoodPack, aFoodPack.totalCalorieCount )
-				lowest = [ newPair ]
-			}
-			else if (lowest.count < leastLimitValue) || (aFoodPack.totalCalorieCount < lowest.last!.calorieCount) {
-				let newPair = ( aFoodPack, aFoodPack.totalCalorieCount )
-				
-				let justLowerThanValueAtIndex = (lowest.lastIndex{ aFoodPack.totalCalorieCount > $0.calorieCount } ?? -1) + 1
-				lowest.insert(newPair, at: justLowerThanValueAtIndex)
-			}
-			
-			if lowest.count > leastLimitValue {
-				lowest.removeLast()
-			}
-		}
-		
-		_foodPacksWithLeastCalories = lowest
-	}
+	public var foodPacksWithLeastCalories: [FoodPackish] { _foodPacksSortedByLeastCaloriesModel.sortedFoodPacks }
 	
 	
 	// MARK: metacosmModelish Conformance
