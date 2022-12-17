@@ -5,6 +5,9 @@
       location = "container:Models"
       name = "Models">
    </Group>
+   <FileRef
+      location = "group:Support">
+   </FileRef>
    <Group
       location = "container:"
       name = "Frameworks and Libraries">
