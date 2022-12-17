@@ -44,8 +44,8 @@ public class HelloWorld : metacosmModel, HelloWorldish
 	}
 	
 	public override var isUnset: Bool {
-		guard message.count > 0 else { return false }
-		return true
+		guard message.count > 0 else { return true }
+		return false
 	}
 }
 
