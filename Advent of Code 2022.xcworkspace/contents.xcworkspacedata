@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Workspace
    version = "1.0">
+   <FileRef
+      location = "group:Day1-Puzzle1/Day1-Puzzle1.xcodeproj">
+   </FileRef>
    <Group
       location = "container:Models"
       name = "Models">
+      <FileRef
+         location = "group:Elf">
+      </FileRef>
+      <FileRef
+         location = "group:HelloWorld">
+      </FileRef>
    </Group>
    <FileRef
       location = "group:Support">
