@@ -62,7 +62,7 @@
 			children = (
 				FAE47EAD294AB08100419275 /* input.example */,
 				FAE47EAB294AB02100419275 /* input */,
-				FA57885929494887005793A3 /* Source */,
+				FA57885929494887005793A3 /* Puzzle1 */,
 				FA57885829494887005793A3 /* Products */,
 				FA182A452949880400A6EA67 /* Frameworks */,
 			);
@@ -76,12 +76,12 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		FA57885929494887005793A3 /* Source */ = {
+		FA57885929494887005793A3 /* Puzzle1 */ = {
 			isa = PBXGroup;
 			children = (
 				FA57885A29494887005793A3 /* main.swift */,
 			);
-			path = Source;
+			path = Puzzle1;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -124,7 +124,7 @@
 					};
 				};
 			};
-			buildConfigurationList = FA57885229494887005793A3 /* Build configuration list for PBXProject "Day1-Puzzle1" */;
+			buildConfigurationList = FA57885229494887005793A3 /* Build configuration list for PBXProject "Day1" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -292,7 +292,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		FA57885229494887005793A3 /* Build configuration list for PBXProject "Day1-Puzzle1" */ = {
+		FA57885229494887005793A3 /* Build configuration list for PBXProject "Day1" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				FA57885C29494887005793A3 /* Debug */,
