@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FAAE70FE2957243200A6C0DC /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAE70FD2957243200A6C0DC /* StringExtensions.swift */; };
 		FAE423DA29571B3200410329 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE423CA29571AE900410329 /* main.swift */; };
 		FAE423DD29571C6600410329 /* input.example in CopyFiles */ = {isa = PBXBuildFile; fileRef = FAE423DC29571C4900410329 /* input.example */; };
 		FAE423DE29571C6600410329 /* input in CopyFiles */ = {isa = PBXBuildFile; fileRef = FAE423DB29571BC800410329 /* input */; };
@@ -27,6 +28,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		FAAE70FD2957243200A6C0DC /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		FAE423CA29571AE900410329 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		FAE423D329571B2100410329 /* Day2-Puzzle1 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Day2-Puzzle1"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAE423DB29571BC800410329 /* input */ = {isa = PBXFileReference; lastKnownFileType = text; path = input; sourceTree = "<group>"; };
@@ -44,12 +46,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FAAE70F9295723B000A6C0DC /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				FAAE70FA295723B900A6C0DC /* Extensions */,
+			);
+			name = Support;
+			path = ../Support;
+			sourceTree = "<group>";
+		};
+		FAAE70FA295723B900A6C0DC /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				FAAE70FD2957243200A6C0DC /* StringExtensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		FAE423B129571AA600410329 = {
 			isa = PBXGroup;
 			children = (
 				FAE423DC29571C4900410329 /* input.example */,
 				FAE423DB29571BC800410329 /* input */,
 				FAE423C929571AE900410329 /* Puzzle1 */,
+				FAAE70F9295723B000A6C0DC /* Support */,
 				FAE423BB29571AA600410329 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -128,6 +148,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAAE70FE2957243200A6C0DC /* StringExtensions.swift in Sources */,
 				FAE423DA29571B3200410329 /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
