@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FAAE70F629571FBE00A6C0DC /* RockPaperScissors in Frameworks */ = {isa = PBXBuildFile; productRef = FAAE70F529571FBE00A6C0DC /* RockPaperScissors */; };
 		FAAE70FE2957243200A6C0DC /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAE70FD2957243200A6C0DC /* StringExtensions.swift */; };
 		FAE423DA29571B3200410329 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE423CA29571AE900410329 /* main.swift */; };
 		FAE423DD29571C6600410329 /* input.example in CopyFiles */ = {isa = PBXBuildFile; fileRef = FAE423DC29571C4900410329 /* input.example */; };
@@ -40,12 +41,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAAE70F629571FBE00A6C0DC /* RockPaperScissors in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FAAE70F429571FBE00A6C0DC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		FAAE70F9295723B000A6C0DC /* Support */ = {
 			isa = PBXGroup;
 			children = (
@@ -71,6 +80,7 @@
 				FAE423C929571AE900410329 /* Puzzle1 */,
 				FAAE70F9295723B000A6C0DC /* Support */,
 				FAE423BB29571AA600410329 /* Products */,
+				FAAE70F429571FBE00A6C0DC /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -106,6 +116,9 @@
 			dependencies = (
 			);
 			name = "Day2-Puzzle1";
+			packageProductDependencies = (
+				FAAE70F529571FBE00A6C0DC /* RockPaperScissors */,
+			);
 			productName = "Day2-Puzzle1";
 			productReference = FAE423D329571B2100410329 /* Day2-Puzzle1 */;
 			productType = "com.apple.product-type.tool";
@@ -311,6 +324,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		FAAE70F529571FBE00A6C0DC /* RockPaperScissors */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = RockPaperScissors;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = FAE423B229571AA600410329 /* Project object */;
 }

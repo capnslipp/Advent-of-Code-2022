@@ -16,6 +16,9 @@
       <FileRef
          location = "group:HelloWorld">
       </FileRef>
+      <FileRef
+         location = "group:RockPaperScissors">
+      </FileRef>
    </Group>
    <FileRef
       location = "group:Support">
