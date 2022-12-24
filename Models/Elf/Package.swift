@@ -16,13 +16,14 @@ let package = Package(
         .package(name: "metacosm", path: "../../../metacosm/"),
         .package(url: "https://github.com/capnslipp/With.git", branch: "master"),
         .package(url: "https://github.com/capnslipp/NilCoalescingAssignmentOperators.git", branch: "master"),
+        .package(name: "RockPaperScissors", path: "../RockPaperScissors/"),
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "Elf",
-            dependencies: [ "metacosm", "With", "NilCoalescingAssignmentOperators" ]),
+            dependencies: [ "metacosm", "With", "NilCoalescingAssignmentOperators", "RockPaperScissors" ]),
         .testTarget(
             name: "ElfTests",
             dependencies: ["Elf"]),
