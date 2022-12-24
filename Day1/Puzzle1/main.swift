@@ -41,7 +41,7 @@ func createElf(fromLines lines: [String])
 	party.add(
 		elf: Elf(
 			name: "Elf #\(elfNameCounter)",
-			foodPack: FoodPack(
+			takingFoodPack: FoodPack(
 				foodItems: foodItems
 			)
 		)

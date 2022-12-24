@@ -41,7 +41,7 @@ func createElf(fromLines lines: [String])
 	party.add(
 		elf: Elf(
 			name: "Elf #\(elfNameCounter)",
-			foodPack: FoodPack(
+			takingFoodPack: FoodPack(
 				foodItems: foodItems
 			)
 		)
@@ -58,18 +58,18 @@ for elf in party.elves {
 let foodPacks = party.elves.map{ $0.foodPack }
 let calorieCountedFoodPacks = CalorieCountedFoodPacks(foodPacks: foodPacks, mostLimit: RecordCountLimit(value: 3), leastLimit: RecordCountLimit(value: 3))
 
-let highestCalorieCountFoodPacks = calorieCountedFoodPacks.foodPacksWithMostCalories
+let highestCalorieCountFoodPackEvles = party.elvesWithMostCaloriesInFoodPacks
 print("Elves with highest calorie count in food pack: ")
-for aFoodPack in highestCalorieCountFoodPacks {
-	print("\(aFoodPack.totalCalorieCount.value) calories")
+for anElf in highestCalorieCountFoodPackEvles {
+	print("\(anElf.foodPack.totalCalorieCount.value) calories")
 }
-let totalOfHighestCalorieCountFoodPacks = highestCalorieCountFoodPacks.map(\.totalCalorieCount.value).reduce(0){ $0 + $1 }
+let totalOfHighestCalorieCountFoodPacks = highestCalorieCountFoodPackEvles.map(\.foodPack.totalCalorieCount.value).reduce(0){ $0 + $1 }
 print("Total: \(totalOfHighestCalorieCountFoodPacks)")
 
-let lowestCalorieCountFoodPacks = calorieCountedFoodPacks.foodPacksWithLeastCalories
+let lowestCalorieCountFoodPackElves = party.elvesWithLeastCaloriesInFoodPacks
 print("Elves with lowest calorie count in food pack: ")
-for aFoodPack in lowestCalorieCountFoodPacks {
-	print("\(aFoodPack.totalCalorieCount.value) calories")
+for anElf in lowestCalorieCountFoodPackElves {
+	print("\(anElf.foodPack.totalCalorieCount.value) calories")
 }
-let totalOfLowestCalorieCountFoodPacks = lowestCalorieCountFoodPacks.map(\.totalCalorieCount.value).reduce(0){ $0 + $1 }
+let totalOfLowestCalorieCountFoodPacks = lowestCalorieCountFoodPackElves.map(\.foodPack.totalCalorieCount.value).reduce(0){ $0 + $1 }
 print("Total: \(totalOfLowestCalorieCountFoodPacks)")
