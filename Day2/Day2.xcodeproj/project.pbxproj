@@ -8,23 +8,29 @@
 
 /* Begin PBXBuildFile section */
 		FAE423DA29571B3200410329 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE423CA29571AE900410329 /* main.swift */; };
+		FAE423DD29571C6600410329 /* input.example in CopyFiles */ = {isa = PBXBuildFile; fileRef = FAE423DC29571C4900410329 /* input.example */; };
+		FAE423DE29571C6600410329 /* input in CopyFiles */ = {isa = PBXBuildFile; fileRef = FAE423DB29571BC800410329 /* input */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		FAE423D129571B2100410329 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
+			buildActionMask = 12;
+			dstPath = "";
+			dstSubfolderSpec = 16;
 			files = (
+				FAE423DD29571C6600410329 /* input.example in CopyFiles */,
+				FAE423DE29571C6600410329 /* input in CopyFiles */,
 			);
-			runOnlyForDeploymentPostprocessing = 1;
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		FAE423CA29571AE900410329 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		FAE423D329571B2100410329 /* Day2-Puzzle1 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Day2-Puzzle1"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FAE423DB29571BC800410329 /* input */ = {isa = PBXFileReference; lastKnownFileType = text; path = input; sourceTree = "<group>"; };
+		FAE423DC29571C4900410329 /* input.example */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = input.example; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,6 +47,8 @@
 		FAE423B129571AA600410329 = {
 			isa = PBXGroup;
 			children = (
+				FAE423DC29571C4900410329 /* input.example */,
+				FAE423DB29571BC800410329 /* input */,
 				FAE423C929571AE900410329 /* Puzzle1 */,
 				FAE423BB29571AA600410329 /* Products */,
 			);
