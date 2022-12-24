@@ -30,6 +30,10 @@ public class Shape : metacosmModel, Shapeish
 	public init(value: Value) {
 		self.value = value
 	}
+	public convenience init(_ value: Value) {
+		self.init(value: value)
+	}
+	
 	public convenience init(value valueCharacterCode: Character) {
 		self.init(value: Value(valueCharacterCode))
 	}
@@ -105,3 +109,59 @@ extension Shape.Value : LosslessStringConvertible
 		}
 	}
 }
+
+
+extension Shape.Value : Comparable
+{
+	public static func < (lhs: Shape.Value, rhs: Shape.Value) -> Bool
+	{
+		if lhs == rhs { return false }
+		else if lhs == .unset { return true }
+		else if rhs == .unset { return false }
+		else {
+			switch lhs {
+				case .rock: return (rhs == .paper)
+				case .paper: return (rhs == .scissors)
+				case .scissors: return (rhs == .rock)
+				
+				default: fatalError("Bad implementation doesn't handle all cases in switch or preceding `if`.")
+			}
+		}
+	}
+}
+
+
+extension Shape
+{
+	/// An unfortante necessity.
+	/// See: https://jayeshkawli.ghost.io/using-equatable/
+	public override func isEqual(_ other: Any?) -> Bool {
+		if let other = other as? Shapeish {
+			return self.value == other.value
+		}
+		return false
+	}
+	
+	/// I don't think this will actually ever get called (preferring `isEqual(_:)` above), but it compiles so lets leave them in for the time being.
+	public static func == (lhs: Shape, rhs: Shapeish) -> Bool { lhs.value == rhs.value }
+	/// I don't think this will actually ever get called (preferring `isEqual(_:)` above), but it compiles so lets leave them in for the time being.
+	public static func == (lhs: Shape, rhs: Shape) -> Bool { lhs.value == rhs.value }
+}
+
+extension Shapeish where Self == Shape
+{
+	/// I don't think this will actually ever get called (preferring `isEqual(_:)` above), but it compiles so lets leave them in for the time being.
+	public static func == (lhs: Shapeish, rhs: Shapeish) -> Bool { lhs.value == rhs.value }
+}
+
+extension Shapeish where Self : metacosmSurrogate
+{
+	/// I don't think this will actually ever get called (preferring `isEqual(_:)` above), but it compiles so lets leave them in for the time being.
+	public static func == (lhs: metacosmSurrogate & Shapeish, rhs: Shapeish) -> Bool { lhs.value == rhs.value }
+}
+
+public func != (lhs: Shapeish, rhs: Shapeish) -> Bool { lhs.value != rhs.value }
+public func <  (lhs: Shapeish, rhs: Shapeish) -> Bool { lhs.value < rhs.value }
+public func <= (lhs: Shapeish, rhs: Shapeish) -> Bool { lhs.value <= rhs.value }
+public func >  (lhs: Shapeish, rhs: Shapeish) -> Bool { lhs.value > rhs.value }
+public func >= (lhs: Shapeish, rhs: Shapeish) -> Bool { lhs.value >= rhs.value }
