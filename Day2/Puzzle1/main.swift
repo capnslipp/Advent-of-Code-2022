@@ -23,5 +23,9 @@ for inputLine in inputLines {
 	guard inputPieces.count >= 2 else {
 		fatalError("Line “\(inputLine)” does not contain at least 2 fields (whitespace-separated).")
 	}
-	print("\(inputPieces[0]) -> \(inputPieces[1])")
+	
+	let opponentShapeValue = Shape.Value(Character(inputPieces[0]))
+	let responseShapeValue = Shape.Value(Character(inputPieces[1]))
+	
+	print("\(opponentShapeValue) -> \(responseShapeValue)")
 }
