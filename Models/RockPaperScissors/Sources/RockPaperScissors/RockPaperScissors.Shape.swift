@@ -59,7 +59,7 @@ public class Shape : metacosmModel, Shapeish
 		}
 	}
 	
-	public private(set) var value: Value = .unset
+	public var value: Value = .unset
 	
 	
 	
