@@ -10,24 +10,24 @@ import RockPaperScissors
 
 
 
-let inputFilename = "input.example"
-//let inputFilename = "input"
-let inputURL = Bundle.main.url(forResource: inputFilename, withExtension: "")!
-let inputContents = try! String(contentsOf: inputURL)
-let inputLines = inputContents.components(separatedBy: .newlines)
-
-for inputLine in inputLines {
-	guard !inputLine.isEmpty else { continue }
+var inputRounds: [(opponent: Shape.Value, response: Shape.Value)] = {
+	let inputFilename = "input.example"
+	//let inputFilename = "input"
+	let inputURL = Bundle.main.url(forResource: inputFilename, withExtension: "")!
+	let inputContents = try! String(contentsOf: inputURL)
+	let inputLines = inputContents.components(separatedBy: .newlines)
 	
-	let inputPieces = inputLine.split(separator: CharacterSet.whitespaces)
-	guard inputPieces.count >= 2 else {
-		fatalError("Line “\(inputLine)” does not contain at least 2 fields (whitespace-separated).")
+	return inputLines.compactMap{ inputLine in
+		guard !inputLine.isEmpty else { return nil }
+		
+		let inputPieces = inputLine.split(separator: CharacterSet.whitespaces)
+		guard inputPieces.count >= 2 else {
+			fatalError("Line “\(inputLine)” does not contain at least 2 fields (whitespace-separated).")
+		}
+		
+		let opponentShapeValue = Shape.Value(Character(inputPieces[0]))
+		let responseShapeValue = Shape.Value(Character(inputPieces[1]))
+		return ( opponent: opponentShapeValue, response: responseShapeValue )
 	}
-	
-	let opponentShape = Shape(value: Character(inputPieces[0]))
-	let opponentShapeScore = ShapeScore(shape: opponentShape)
-	let responseShape = Shape(value: Character(inputPieces[1]))
-	let responseShapeScore = ShapeScore(shape: responseShape)
-	
-	print("\(opponentShape.value) (\(opponentShapeScore.value)) -> \(responseShape.value) (\(responseShapeScore.value))")
-}
+}()
+inputRounds.forEach{ print($0) }
