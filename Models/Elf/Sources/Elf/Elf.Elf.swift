@@ -7,6 +7,7 @@
 
 import Foundation
 import metacosm
+import With
 
 
 
@@ -29,25 +30,35 @@ public class Elf : metacosmModel, Elfish
 {
 	public override init() {
 		self.name = ""
-		_foodPack = FoodPack(foodItems: [])
+		_foodPackModel = FoodPack(foodItems: [])
+		defer { _foodPackModel.owner = self.surrogate() }
+		
+		super.init()
 	}
 	
-	public init(name: String, foodPack: FoodPackish) {
+	public init(name: String, takingFoodPack foodPackModel: FoodPack) {
 		self.name = name
-		_foodPack = foodPack
+		
+		_foodPackModel = foodPackModel
+		defer { _foodPackModel.owner = self.surrogate() }
+		
+		super.init()
 	}
 	
 	
 	public let name: String
 	
-	var _foodPack: FoodPackish
-	public var foodPack: FoodPackish { _foodPack.surrogate() }
+	var _foodPackModel: FoodPack
+	public var foodPack: FoodPackish { _foodPackModel.surrogate() }
 	
 	
 	// MARK: metacosmModelish Conformance
 	
 	public override var isInvalid: Bool {
 		guard !self.isUnset else { return true }
+		if let owner = self.foodPack.owner {
+			guard (owner.surrogate() as! AnyHashable) == (self.surrogate() as! AnyHashable) else { return true }
+		}
 		return false
 	}
 	

@@ -18,7 +18,14 @@ public protocol PartyOfElvesish : metacosmModelish
 {
 	var elves: [Elfish] { get }
 	
+	var foodPacks: [FoodPackish] { get }
+	
+	var calorieCountedFoodPacks: CalorieCountedFoodPacksish { get }
+	
 	var elfWithMostCaloriesInFoodPack: Elfish? { get }
+	var elvesWithMostCaloriesInFoodPacks: [Elfish] { get }
+	var elfWithLeastCaloriesInFoodPack: Elfish? { get }
+	var elvesWithLeastCaloriesInFoodPacks: [Elfish] { get }
 }
 
 
@@ -31,9 +38,13 @@ public class PartyOfElves : metacosmModel, PartyOfElvesish
 	public override init() {
 	}
 	
-	public init(elves: [Elfish]) {
+	public convenience init(elves: [Elfish]) {
+		self.init(elves: elves)
+	}
+	
+	public init(elves: [Elfish], takingCalorieCountedFoodPacks calorieCountedFoodPacksModel: CalorieCountedFoodPacks? = nil) {
 		_elves = elves
-		defer { recalcElfWithMostCaloriesInFoodPack() }
+		_calorieCountedFoodPacksModel_lazyStorage =?? calorieCountedFoodPacksModel
 		
 		super.init()
 	}
@@ -46,39 +57,49 @@ public class PartyOfElves : metacosmModel, PartyOfElvesish
 		_elves.isEmpty
 	}
 	
-	public func add(elf: Elfish) {
-		_elves.append(elf)
-		recalcElfWithMostCaloriesInFoodPack()
+	public func add(elf newElf: Elfish) {
+		_elves.append(newElf)
+		_calorieCountedFoodPacksModel.foodPacks.append(newElf.foodPack)
 	}
 	
-	public func add(elves: [Elfish]) {
-		_elves.append(contentsOf: elves)
-		recalcElfWithMostCaloriesInFoodPack()
+	public func add(elves newElves: [Elfish]) {
+		_elves.append(contentsOf: newElves)
+		_calorieCountedFoodPacksModel.foodPacks.append(contentsOf: newElves.map(\.foodPack))
 	}
 	
 	
-	private typealias ElfCalorieCountPair = ( elf: Elfish, calorieCount: CalorieCountish )
-	private static let _noElfCalorieCountSentinel: ElfCalorieCountPair = ( Elf().surrogate(), CalorieCount(value: CalorieCount.minimumValue).surrogate() )
+	// MARK: - FoodPacks
 	
-	private var _elfWithMostCaloriesInFoodPack: ElfCalorieCountPair? = nil
-	private func recalcElfWithMostCaloriesInFoodPack() {
-		_elfWithMostCaloriesInFoodPack = nil
+	public var foodPacks: [FoodPackish] {
+		_elves.map(\.foodPack)
 	}
+	
+	
+	// MARK: - Calorie-Counted FoodPacks
+	
+	private var _calorieCountedFoodPacksModel_lazyStorage: CalorieCountedFoodPacks?
+	private var _calorieCountedFoodPacksModel: CalorieCountedFoodPacks {
+		_calorieCountedFoodPacksModel_lazyStorage ??= CalorieCountedFoodPacks(
+			foodPacks: self.foodPacks,
+			mostLimit: RecordCountLimit(value: 3),
+			leastLimit: RecordCountLimit(value: 3)
+		)
+		return _calorieCountedFoodPacksModel_lazyStorage!
+	}
+	public var calorieCountedFoodPacks: CalorieCountedFoodPacksish { _calorieCountedFoodPacksModel.surrogate() }
+	
 	public var elfWithMostCaloriesInFoodPack: Elfish? {
-		_elfWithMostCaloriesInFoodPack ??= {
-			var highest = PartyOfElves._noElfCalorieCountSentinel
-			highest = _elves.reduce(into: highest) { highest, anElf in
-				if anElf.foodPack.totalCalorieCount > highest.calorieCount {
-					highest = ( anElf, anElf.foodPack.totalCalorieCount )
-				}
-			}
-			guard highest.elf !== PartyOfElves._noElfCalorieCountSentinel.elf else { return nil }
-			return highest
-		}()
-		
-		return _elfWithMostCaloriesInFoodPack?.elf
+		_calorieCountedFoodPacksModel.foodPacksWithMostCalories.first?.owner!
 	}
-	
+	public var elvesWithMostCaloriesInFoodPacks: [Elfish] {
+		_calorieCountedFoodPacksModel.foodPacksWithMostCalories.map(\.owner!)
+	}
+	public var elfWithLeastCaloriesInFoodPack: Elfish? {
+		_calorieCountedFoodPacksModel.foodPacksWithLeastCalories.first?.owner!
+	}
+	public var elvesWithLeastCaloriesInFoodPacks: [Elfish] {
+		_calorieCountedFoodPacksModel.foodPacksWithLeastCalories.map(\.owner!)
+	}
 	
 	// MARK: metacosmModelish Conformance
 	

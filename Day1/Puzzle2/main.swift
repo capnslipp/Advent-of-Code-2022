@@ -55,8 +55,21 @@ for elf in party.elves {
 	print("\(elf.name): \(elf.foodPack.totalCalorieCount.value) calories")
 }
 
-if let highestCalorieCountElf = party.elfWithMostCaloriesInFoodPack {
-	print("Elf with highest calorie count in food pack: \(highestCalorieCountElf.name): \(highestCalorieCountElf.foodPack.totalCalorieCount.value) calories")
-} else {
-	print("Elf with highest calorie count in food pack: N/A— no elves")
+let foodPacks = party.elves.map{ $0.foodPack }
+let calorieCountedFoodPacks = CalorieCountedFoodPacks(foodPacks: foodPacks, mostLimit: RecordCountLimit(value: 3), leastLimit: RecordCountLimit(value: 3))
+
+let highestCalorieCountFoodPackEvles = party.elvesWithMostCaloriesInFoodPacks
+print("Elves with highest calorie count in food pack: ")
+for anElf in highestCalorieCountFoodPackEvles {
+	print("\(anElf.foodPack.totalCalorieCount.value) calories")
 }
+let totalOfHighestCalorieCountFoodPacks = highestCalorieCountFoodPackEvles.map(\.foodPack.totalCalorieCount.value).reduce(0){ $0 + $1 }
+print("Total: \(totalOfHighestCalorieCountFoodPacks)")
+
+let lowestCalorieCountFoodPackElves = party.elvesWithLeastCaloriesInFoodPacks
+print("Elves with lowest calorie count in food pack: ")
+for anElf in lowestCalorieCountFoodPackElves {
+	print("\(anElf.foodPack.totalCalorieCount.value) calories")
+}
+let totalOfLowestCalorieCountFoodPacks = lowestCalorieCountFoodPackElves.map(\.foodPack.totalCalorieCount.value).reduce(0){ $0 + $1 }
+print("Total: \(totalOfLowestCalorieCountFoodPacks)")

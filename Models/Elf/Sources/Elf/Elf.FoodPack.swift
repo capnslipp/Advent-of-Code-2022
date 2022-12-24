@@ -16,6 +16,8 @@ import NilCoalescingAssignmentOperators
 @objc
 public protocol FoodPackish : metacosmModelish
 {
+	var owner: Elfish? { get }
+	
 	var foodItems: [FoodItemish] { get }
 	
 	var totalCalorieCount: DynamicCalorieCountish { get }
@@ -32,9 +34,13 @@ public class FoodPack : metacosmModel, FoodPackish
 		_foodItems = []
 	}
 	
-	public init(foodItems: [FoodItemish]) {
+	public init(owner: Elfish? = nil, foodItems: [FoodItemish]) {
+		self.owner = owner
 		_foodItems = foodItems
 	}
+	
+	
+	public var owner: Elfish?
 	
 	
 	public var _foodItems: [FoodItemish] = []
