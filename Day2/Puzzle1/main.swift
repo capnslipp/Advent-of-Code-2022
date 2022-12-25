@@ -48,8 +48,13 @@ for inputRound in inputRounds {
 	
 	round.play()
 	
-	print("\(round.player1.name) with \(round.player1.shape.value) vs. \(round.player2.name) with \(round.player2.shape.value):")
-	if round.currentWinnerPlayer === Round.drawPlayerSentinel {
+	print(
+		"\(round.player1.name)\(round.player1Outcome.value == .win ? "✨" : "") " +
+		"with \(round.player1.shape.value) " +
+		"vs. \(round.player2.name)\(round.player2Outcome.value == .win ? "✨" : "") " +
+		"with \(round.player2.shape.value):"
+	)
+	if round.winnerPlayer == Round.drawPlayerSentinel {
 		print("\t"+"Draw")
 	} else {
 		print("\t"+"Winner is \(round.winnerPlayer.name)")

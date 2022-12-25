@@ -16,7 +16,10 @@ import metacosm
 public protocol Roundish : metacosmModelish
 {
 	var player1: Playerish { get }
+	var player1Outcome: VersusOutcomeish { get }
+	
 	var player2: Playerish { get }
+	var player2Outcome: VersusOutcomeish { get }
 	
 	var winnerPlayer: Playerish { get }
 	
@@ -38,7 +41,15 @@ public class Round : metacosmModel, Roundish
 	
 	
 	public let player1: Playerish
+	
+	private var _player1OutcomeModel: VersusOutcome = VersusOutcome()
+	public var player1Outcome: VersusOutcomeish { _player1OutcomeModel.surrogate() }
+	
 	public let player2: Playerish
+	
+	private var _player2OutcomeModel: VersusOutcome = VersusOutcome()
+	public var player2Outcome: VersusOutcomeish { _player2OutcomeModel.surrogate() }
+	
 	public static let drawPlayerSentinel: Playerish = Player(name: "«Draw Player»", shape: Shape(.unset)).surrogate()
 	
 	
@@ -82,6 +93,16 @@ public class Round : metacosmModel, Roundish
 			case .player2: return player2
 			case .draw: return Self.drawPlayerSentinel
 		}}()
+		_player1OutcomeModel.value = { switch _winnerId! {
+			case .player1: return .won
+			case .player2: return .lost
+			case .draw: return .draw
+		}}()
+		_player2OutcomeModel.value = { switch _winnerId! {
+			case .player1: return .lost
+			case .player2: return .won
+			case .draw: return .draw
+		}}()
 	}
 	
 	public func reset()
@@ -93,6 +114,8 @@ public class Round : metacosmModel, Roundish
 	{
 		_winnerId = nil
 		_currentWinnerPlayer = .noPlayerSentinel
+		_player1OutcomeModel.value = .unset
+		_player2OutcomeModel.value = .unset
 	}
 	
 	
