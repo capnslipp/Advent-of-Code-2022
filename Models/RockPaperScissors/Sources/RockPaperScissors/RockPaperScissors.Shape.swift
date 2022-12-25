@@ -88,24 +88,14 @@ public extension Shapeish
 }
 
 
-extension Shape.Value : LosslessStringConvertible
+extension Shape.Value : CustomStringConvertible
 {
-	public init?(_ description: String) {
-		switch description {
-			case "unset": self = .unset
-			case "rock": self = .rock
-			case "paper": self = .paper
-			case "scissors": self = .scissors
-			default: return nil
-		}
-	}
-	
 	public var description: String {
 		switch self {
 			case .unset: return "unset"
-			case .rock: return "rock"
-			case .paper: return "paper"
-			case .scissors: return "scissors"
+			case .rock: return "🪨 rock"
+			case .paper: return "📜 paper"
+			case .scissors: return "✂️ scissors"
 		}
 	}
 }
