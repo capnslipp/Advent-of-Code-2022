@@ -49,9 +49,9 @@ public class Shape : metacosmModel, Shapeish
 	{
 		case unset = 0
 		
-		case rock
-		case paper
-		case scissors
+		case rock = 1
+		case paper = 2
+		case scissors = 3
 		
 		public init(_ characterCode: Character)
 		{
@@ -166,3 +166,28 @@ public func <  (lhs: Shapeish, rhs: Shapeish) -> Bool { lhs.value < rhs.value }
 public func <= (lhs: Shapeish, rhs: Shapeish) -> Bool { lhs.value <= rhs.value }
 public func >  (lhs: Shapeish, rhs: Shapeish) -> Bool { lhs.value > rhs.value }
 public func >= (lhs: Shapeish, rhs: Shapeish) -> Bool { lhs.value >= rhs.value }
+
+
+public func + (lhs: Shape.Value, rhs: Int) -> Shape.Value {
+	guard lhs != .unset else {
+		return .unset
+	}
+	guard rhs >= 0 else {
+		return lhs - (-rhs)
+	}
+	var rawValue = Int(lhs.rawValue) + rhs
+	rawValue = (rawValue - 1) % 3 + 1 // modulus to normal 1-3 range, for finite numbers ≥1
+	return Shape.Value(rawValue: UInt(rawValue))!
+}
+
+public func - (lhs: Shape.Value, rhs: Int) -> Shape.Value {
+	guard lhs != .unset else {
+		return .unset
+	}
+	guard rhs >= 0 else {
+		return lhs + (-rhs)
+	}
+	var rawValue = Int(lhs.rawValue) - rhs
+	rawValue = ((rawValue - 1) % 3 + 3) % 3 + 1 // modulus to normal 1-3 range, for all finite numbers
+	return Shape.Value(rawValue: UInt(rawValue))!
+}
