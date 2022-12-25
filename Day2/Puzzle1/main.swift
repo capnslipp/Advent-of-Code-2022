@@ -7,12 +7,13 @@
 
 import Foundation
 import RockPaperScissors
+import Elf
 
 
 
 var inputRounds: [(opponent: Shape.Value, response: Shape.Value)] = {
-	let inputFilename = "input.example"
-	//let inputFilename = "input"
+	//let inputFilename = "input.example"
+	let inputFilename = "input"
 	let inputURL = Bundle.main.url(forResource: inputFilename, withExtension: "")!
 	let inputContents = try! String(contentsOf: inputURL)
 	let inputLines = inputContents.components(separatedBy: .newlines)
@@ -30,4 +31,27 @@ var inputRounds: [(opponent: Shape.Value, response: Shape.Value)] = {
 		return ( opponent: opponentShapeValue, response: responseShapeValue )
 	}
 }()
-inputRounds.forEach{ print($0) }
+
+
+let myShape = Shape()
+let mePlayer = Player(name: "me", shape: myShape)
+
+let elfsShape = Shape()
+let elfPlayer = Elf(name: "Opponent Elf", shape: elfsShape)
+
+let round = Round(player1: mePlayer, player2: elfPlayer)
+for inputRound in inputRounds {
+	round.reset()
+	
+	elfsShape.value = inputRound.opponent
+	myShape.value = inputRound.response
+	
+	round.play()
+	
+	print("\(round.player1.name) with \(round.player1.shape.value) vs. \(round.player2.name) with \(round.player2.shape.value):")
+	if round.currentWinnerPlayer === Round.drawPlayerSentinel {
+		print("\t"+"Draw")
+	} else {
+		print("\t"+"Winner is \(round.currentWinnerPlayer.name)")
+	}
+}

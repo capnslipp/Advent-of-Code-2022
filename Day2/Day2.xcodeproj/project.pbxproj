@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FA33C59E29588AAE0024D146 /* Elf in Frameworks */ = {isa = PBXBuildFile; productRef = FA33C59D29588AAE0024D146 /* Elf */; };
 		FAAE70F629571FBE00A6C0DC /* RockPaperScissors in Frameworks */ = {isa = PBXBuildFile; productRef = FAAE70F529571FBE00A6C0DC /* RockPaperScissors */; };
 		FAAE70FE2957243200A6C0DC /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAE70FD2957243200A6C0DC /* StringExtensions.swift */; };
 		FAE423DA29571B3200410329 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE423CA29571AE900410329 /* main.swift */; };
@@ -41,6 +42,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA33C59E29588AAE0024D146 /* Elf in Frameworks */,
 				FAAE70F629571FBE00A6C0DC /* RockPaperScissors in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -118,6 +120,7 @@
 			name = "Day2-Puzzle1";
 			packageProductDependencies = (
 				FAAE70F529571FBE00A6C0DC /* RockPaperScissors */,
+				FA33C59D29588AAE0024D146 /* Elf */,
 			);
 			productName = "Day2-Puzzle1";
 			productReference = FAE423D329571B2100410329 /* Day2-Puzzle1 */;
@@ -326,6 +329,10 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		FA33C59D29588AAE0024D146 /* Elf */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Elf;
+		};
 		FAAE70F529571FBE00A6C0DC /* RockPaperScissors */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = RockPaperScissors;
