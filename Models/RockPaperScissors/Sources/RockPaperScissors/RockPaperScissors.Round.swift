@@ -17,9 +17,11 @@ public protocol Roundish : metacosmModelish
 {
 	var player1: Playerish { get }
 	var player1Outcome: VersusOutcomeish { get }
+	var player1Score: Scoreish { get }
 	
 	var player2: Playerish { get }
 	var player2Outcome: VersusOutcomeish { get }
+	var player2Score: Scoreish { get }
 	
 	var winnerPlayer: Playerish { get }
 	
@@ -45,10 +47,16 @@ public class Round : metacosmModel, Roundish
 	private var _player1OutcomeModel: VersusOutcome = VersusOutcome()
 	public var player1Outcome: VersusOutcomeish { _player1OutcomeModel.surrogate() }
 	
+	private var _player1ScoreModel = Score()
+	public var player1Score: Scoreish { _player1ScoreModel.surrogate() }
+	
 	public let player2: Playerish
 	
 	private var _player2OutcomeModel: VersusOutcome = VersusOutcome()
 	public var player2Outcome: VersusOutcomeish { _player2OutcomeModel.surrogate() }
+	
+	private var _player2ScoreModel = Score()
+	public var player2Score: Scoreish { _player2ScoreModel.surrogate() }
 	
 	public static let drawPlayerSentinel: Playerish = Player(name: "«Draw Player»", shape: Shape(.unset)).surrogate()
 	
@@ -103,6 +111,8 @@ public class Round : metacosmModel, Roundish
 			case .player2: return .won
 			case .draw: return .draw
 		}}()
+		_player1ScoreModel.value = _player1OutcomeModel.score.value + self.player1.shape.score.value
+		_player2ScoreModel.value = _player2OutcomeModel.score.value + self.player2.shape.score.value
 	}
 	
 	public func reset()
@@ -116,6 +126,8 @@ public class Round : metacosmModel, Roundish
 		_currentWinnerPlayer = .noPlayerSentinel
 		_player1OutcomeModel.value = .unset
 		_player2OutcomeModel.value = .unset
+		_player1ScoreModel.value = 0
+		_player2ScoreModel.value = 0
 	}
 	
 	
