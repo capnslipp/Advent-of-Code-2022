@@ -11,7 +11,7 @@ import Elf
 
 
 
-var inputRounds: [(opponent: Shape.Value, response: Shape.Value)] = {
+var inputRounds: [(opponent: Shape.Value, response: VersusOutcome.Value)] = {
 	//let inputFilename = "input.example"
 	let inputFilename = "input"
 	let inputURL = Bundle.main.url(forResource: inputFilename, withExtension: "")!
@@ -27,26 +27,39 @@ var inputRounds: [(opponent: Shape.Value, response: Shape.Value)] = {
 		}
 		
 		let opponentShapeValue = Shape.Value(Character(inputPieces[0]))
-		let responseShapeValue = Shape.Value(Character(inputPieces[1]))
-		return ( opponent: opponentShapeValue, response: responseShapeValue )
+		let responseOutcomeValue = VersusOutcome.Value(Character(inputPieces[1]))
+		return ( opponent: opponentShapeValue, response: responseOutcomeValue )
 	}
 }()
 
 
-let myShape = Shape()
-let mePlayer = Player(name: "me", shape: myShape)
-let myTotalScore = Score()
-
 let elfsShape = Shape()
 let elfPlayer = Elf(name: "Opponent Elf", shape: elfsShape)
 let elfsTotalScore = Score()
+
+let myOutcome = VersusOutcome()
+let mePlayer = Player(
+	name: "me",
+	shape: DynamicShape{
+		switch myOutcome.value {
+			case .win:
+				return elfsShape.value + 1
+			case .lose:
+				return elfsShape.value - 1
+			case .draw:
+				return elfsShape.value
+			case .unset: return .unset
+		}
+	}
+)
+let myTotalScore = Score()
 
 let round = Round(player1: mePlayer, player2: elfPlayer)
 for inputRound in inputRounds {
 	round.reset()
 	
 	elfsShape.value = inputRound.opponent
-	myShape.value = inputRound.response
+	myOutcome.value = inputRound.response
 	
 	round.play()
 	
