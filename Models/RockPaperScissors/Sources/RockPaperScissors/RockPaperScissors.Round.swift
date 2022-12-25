@@ -18,7 +18,6 @@ public protocol Roundish : metacosmModelish
 	var player1: Playerish { get }
 	var player2: Playerish { get }
 	
-	var currentWinnerPlayer: Playerish { get }
 	var winnerPlayer: Playerish { get }
 	
 	var isReady: Bool { get }
@@ -48,10 +47,10 @@ public class Round : metacosmModel, Roundish
 	private enum WinnerId { case player1, player2, draw }
 	private var _winnerId: WinnerId?
 	
-	public private(set) var currentWinnerPlayer: Playerish = .noPlayerSentinel
+	private var _currentWinnerPlayer: Playerish = .noPlayerSentinel
 	
 	public lazy var winnerPlayer: Playerish = metacosmDelegatingSurrogate{ [weak self] in
-		self?.currentWinnerPlayer.surrogate()
+		self?._currentWinnerPlayer.surrogate()
 	} as! metacosmDelegatingSurrogate & Playerish
 	
 	
@@ -78,7 +77,7 @@ public class Round : metacosmModel, Roundish
 			case .orderedAscending: return .player2
 			case .orderedSame: return .draw
 		}}()
-		self.currentWinnerPlayer = { switch _winnerId! {
+		_currentWinnerPlayer = { switch _winnerId! {
 			case .player1: return player1
 			case .player2: return player2
 			case .draw: return Self.drawPlayerSentinel
@@ -93,7 +92,7 @@ public class Round : metacosmModel, Roundish
 	private func resetWinner()
 	{
 		_winnerId = nil
-		self.currentWinnerPlayer = .noPlayerSentinel
+		_currentWinnerPlayer = .noPlayerSentinel
 	}
 	
 	

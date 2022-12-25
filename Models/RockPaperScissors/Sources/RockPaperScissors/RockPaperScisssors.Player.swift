@@ -65,6 +65,12 @@ public extension Playerish
 }
 
 
+public func == (lhs: Playerish, rhs: Playerish) -> Bool {
+	(lhs.name == rhs.name) &&
+		(lhs.shape == rhs.shape)
+}
+
+
 public extension Playerish where Self == Playerish
 {
 	static var noPlayerSentinel: Playerish { Player.noPlayerSentinel }

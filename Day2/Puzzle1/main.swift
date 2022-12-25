@@ -52,6 +52,6 @@ for inputRound in inputRounds {
 	if round.currentWinnerPlayer === Round.drawPlayerSentinel {
 		print("\t"+"Draw")
 	} else {
-		print("\t"+"Winner is \(round.currentWinnerPlayer.name)")
+		print("\t"+"Winner is \(round.winnerPlayer.name)")
 	}
 }
