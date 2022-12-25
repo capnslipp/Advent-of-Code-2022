@@ -37,12 +37,13 @@ public protocol Roundish : metacosmModelish
 public class Round : metacosmModel, Roundish
 {
 	public init(player1: Playerish, player2: Playerish) {
-		self.player1 = player1.surrogate()
-		self.player2 = player2.surrogate()
+		_player1 = player1
+		_player2 = player2
 	}
 	
 	
-	public let player1: Playerish
+	private var _player1: Playerish
+	public var player1: Playerish { _player1.surrogate() }
 	
 	private var _player1OutcomeModel: VersusOutcome = VersusOutcome()
 	public var player1Outcome: VersusOutcomeish { _player1OutcomeModel.surrogate() }
@@ -50,7 +51,8 @@ public class Round : metacosmModel, Roundish
 	private var _player1ScoreModel = Score()
 	public var player1Score: Scoreish { _player1ScoreModel.surrogate() }
 	
-	public let player2: Playerish
+	private var _player2: Playerish
+	public var player2: Playerish { _player2.surrogate() }
 	
 	private var _player2OutcomeModel: VersusOutcome = VersusOutcome()
 	public var player2Outcome: VersusOutcomeish { _player2OutcomeModel.surrogate() }

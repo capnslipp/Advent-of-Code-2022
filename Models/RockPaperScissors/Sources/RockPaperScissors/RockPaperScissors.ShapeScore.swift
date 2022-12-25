@@ -31,18 +31,16 @@ public protocol ShapeScoreish : Scoreish
 public class ShapeScore : metacosmModel, ShapeScoreish
 {
 	public init(shape: Shapeish) {
-		self.shape = shape
+		_shape = shape
 	}
 	
 	func willDie() {
 		// Hack to subvert bug in metacosm
-		self.shape = nil
+		_shape = nil
 	}
 	
-	
-	public private(set) var shape: Shapeish! {
-		didSet { shape = shape?.surrogate() }
-	}
+	private var _shape: Shapeish!
+	public var shape: Shapeish! { _shape?.surrogate() }
 	
 	
 	// MARK: Scoreish Adherance

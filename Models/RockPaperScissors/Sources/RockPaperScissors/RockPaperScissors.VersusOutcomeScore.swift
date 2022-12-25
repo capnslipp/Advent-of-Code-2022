@@ -31,18 +31,17 @@ public protocol VersusOutcomeScoreish : Scoreish
 public class VersusOutcomeScore : metacosmModel, VersusOutcomeScoreish
 {
 	public init(versusOutcome: VersusOutcomeish) {
-		self.versusOutcome = versusOutcome
+		_versusOutcome = versusOutcome
 	}
 	
 	func willDie() {
 		// Hack to subvert bug in metacosm
-		self.versusOutcome = nil
+		_versusOutcome = nil
 	}
 	
 	
-	public private(set) var versusOutcome: VersusOutcomeish! {
-		didSet { versusOutcome = versusOutcome?.surrogate() }
-	}
+	private var _versusOutcome: VersusOutcomeish!
+	public var versusOutcome: VersusOutcomeish! { _versusOutcome?.surrogate() }
 	
 	
 	// MARK: Scoreish Adherance
