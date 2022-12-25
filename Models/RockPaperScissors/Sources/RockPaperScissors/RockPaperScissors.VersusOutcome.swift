@@ -16,6 +16,8 @@ import metacosm
 public protocol VersusOutcomeish : metacosmModelish
 {
 	var value: VersusOutcome.Value { get }
+	
+	var score: VersusOutcomeScoreish { get }
 }
 
 
@@ -29,6 +31,10 @@ public class VersusOutcome : metacosmModel, VersusOutcomeish
 	
 	public init(value: Value) {
 		self.value = value
+		
+		super.init()
+		
+		_ = _scoreModel
 	}
 	public convenience init(_ value: Value) {
 		self.init(value: value)
@@ -50,6 +56,11 @@ public class VersusOutcome : metacosmModel, VersusOutcomeish
 	
 	public var value: Value = .unset
 	
+	
+	// MARK: Score
+	
+	private lazy var _scoreModel: VersusOutcomeScore = VersusOutcomeScore(versusOutcome: self.surrogate())
+	public var score: VersusOutcomeScoreish { _scoreModel.surrogate() }
 	
 	
 	// MARK: metacosmModelish Conformance
