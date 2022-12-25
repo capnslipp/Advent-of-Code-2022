@@ -35,9 +35,11 @@ var inputRounds: [(opponent: Shape.Value, response: Shape.Value)] = {
 
 let myShape = Shape()
 let mePlayer = Player(name: "me", shape: myShape)
+let myTotalScore = Score()
 
 let elfsShape = Shape()
 let elfPlayer = Elf(name: "Opponent Elf", shape: elfsShape)
+let elfsTotalScore = Score()
 
 let round = Round(player1: mePlayer, player2: elfPlayer)
 for inputRound in inputRounds {
@@ -47,6 +49,9 @@ for inputRound in inputRounds {
 	myShape.value = inputRound.response
 	
 	round.play()
+	
+	myTotalScore.value += round.player1Score.value
+	elfsTotalScore.value += round.player2Score.value
 	
 	print(
 		"\(round.player1.name)\(round.player1Outcome.value == .win ? "✨" : "") " +
@@ -64,4 +69,13 @@ for inputRound in inputRounds {
 		"& \(round.player2.name) scored \(round.player2Score.value) (\(round.player2.shape.score.value) + \(round.player2Outcome.score.value))"
 	)
 	print("")
+}
+
+print("Final scores: \(mePlayer.name): \(myTotalScore.value) vs. \(elfPlayer.name): \(elfsTotalScore.value)")
+if myTotalScore > elfsTotalScore {
+	print("Battle Winner: \(mePlayer.name)")
+} else if elfsTotalScore > myTotalScore {
+	print("Battle Winner: \(elfPlayer.name)")
+} else {
+	print("Battle Winner: draw")
 }
