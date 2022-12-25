@@ -40,6 +40,10 @@ public class VersusOutcome : metacosmModel, VersusOutcomeish
 		self.init(value: value)
 	}
 	
+	public convenience init(value valueCharacterCode: Character) {
+		self.init(value: Value(valueCharacterCode))
+	}
+	
 	
 	@objc public enum Value : UInt
 	{
@@ -52,6 +56,17 @@ public class VersusOutcome : metacosmModel, VersusOutcomeish
 		static let lost: Value = .lost
 		
 		case draw
+		
+		public init(_ characterCode: Character)
+		{
+			switch characterCode {
+				case "X": self = .lose
+				case "Y": self = .draw
+				case "Z": self = .win
+				
+				default: self = .unset
+			}
+		}
 	}
 	
 	public var value: Value = .unset
