@@ -61,3 +61,11 @@ public extension Scoreish
 		return surrogate() as! metacosmSurrogate & Scoreish
 	}
 }
+
+
+public func == (lhs: Scoreish, rhs: Scoreish) -> Bool { lhs.value == rhs.value }
+public func != (lhs: Scoreish, rhs: Scoreish) -> Bool { lhs.value != rhs.value }
+public func <  (lhs: Scoreish, rhs: Scoreish) -> Bool { lhs.value < rhs.value }
+public func <= (lhs: Scoreish, rhs: Scoreish) -> Bool { lhs.value <= rhs.value }
+public func >  (lhs: Scoreish, rhs: Scoreish) -> Bool { lhs.value > rhs.value }
+public func >= (lhs: Scoreish, rhs: Scoreish) -> Bool { lhs.value >= rhs.value }
