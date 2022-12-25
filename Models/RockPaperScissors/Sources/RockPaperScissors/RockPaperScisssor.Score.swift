@@ -33,7 +33,7 @@ public class Score : metacosmModel, Scoreish
 	
 	
 	public typealias Value = UInt
-	public private(set) var value: Value = Score.zeroValue
+	public var value: Value = Score.zeroValue
 	
 	public static let zeroValue: Value = 0
 	
