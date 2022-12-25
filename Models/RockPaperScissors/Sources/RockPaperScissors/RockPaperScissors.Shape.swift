@@ -16,6 +16,8 @@ import metacosm
 public protocol Shapeish : metacosmModelish
 {
 	var value: Shape.Value { get }
+	
+	var score: ShapeScoreish { get }
 }
 
 
@@ -29,6 +31,10 @@ public class Shape : metacosmModel, Shapeish
 	
 	public init(value: Value) {
 		self.value = value
+		
+		super.init()
+		
+		_ = _scoreModel
 	}
 	public convenience init(_ value: Value) {
 		self.init(value: value)
@@ -61,6 +67,11 @@ public class Shape : metacosmModel, Shapeish
 	
 	public var value: Value = .unset
 	
+	
+	// MARK: Score
+	
+	private lazy var _scoreModel: ShapeScore = ShapeScore(shape: self.surrogate())
+	public var score: ShapeScoreish { _scoreModel.surrogate() }
 	
 	
 	// MARK: metacosmModelish Conformance
