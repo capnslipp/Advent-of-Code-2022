@@ -15,7 +15,7 @@ import metacosm
 @objc
 public protocol ShapeScoreish : Scoreish
 {
-	var shape: Shapeish { get }
+	var shape: Shapeish! { get }
 	
 	
 	// Scoreish Adherance
@@ -34,9 +34,14 @@ public class ShapeScore : metacosmModel, ShapeScoreish
 		self.shape = shape
 	}
 	
+	func willDie() {
+		// Hack to subvert bug in metacosm
+		self.shape = nil
+	}
 	
-	public private(set) var shape: Shapeish {
-		didSet { shape = shape.surrogate() }
+	
+	public private(set) var shape: Shapeish! {
+		didSet { shape = shape?.surrogate() }
 	}
 	
 	
@@ -44,7 +49,7 @@ public class ShapeScore : metacosmModel, ShapeScoreish
 	
 	public typealias Value = Score.Value
 	public var value: Value {
-		switch self.shape.value {
+		switch self.shape?.value ?? .unset {
 			case .rock: return 1
 			case .paper: return 2
 			case .scissors: return 3
@@ -61,7 +66,7 @@ public class ShapeScore : metacosmModel, ShapeScoreish
 	}
 	
 	public override var isUnset: Bool {
-		if self.shape.isUnset { return true }
+		if self.shape?.isUnset ?? true { return true }
 		return false
 	}
 }

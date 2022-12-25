@@ -60,7 +60,7 @@ for inputRound in inputRounds {
 		print("\t"+"Winner is \(round.winnerPlayer.name)")
 	}
 	print(
-		"\(round.player1.name) scored \(round.player1Outcome.score.value) " +
-		"& \(round.player2.name) scored \(round.player2Outcome.score.value)"
+		"\(round.player1.name) scored \(round.player1Outcome.score.value) + \(round.player1.shape.score.value) " +
+		"& \(round.player2.name) scored \(round.player2Outcome.score.value) + \(round.player2.shape.score.value)"
 	)
 }

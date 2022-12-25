@@ -15,7 +15,7 @@ import metacosm
 @objc
 public protocol VersusOutcomeScoreish : Scoreish
 {
-	var versusOutcome: VersusOutcomeish { get }
+	var versusOutcome: VersusOutcomeish! { get }
 	
 	
 	// Scoreish Adherance
@@ -34,9 +34,14 @@ public class VersusOutcomeScore : metacosmModel, VersusOutcomeScoreish
 		self.versusOutcome = versusOutcome
 	}
 	
+	func willDie() {
+		// Hack to subvert bug in metacosm
+		self.versusOutcome = nil
+	}
 	
-	public private(set) var versusOutcome: VersusOutcomeish {
-		didSet { versusOutcome = versusOutcome.surrogate() }
+	
+	public private(set) var versusOutcome: VersusOutcomeish! {
+		didSet { versusOutcome = versusOutcome?.surrogate() }
 	}
 	
 	
@@ -44,7 +49,7 @@ public class VersusOutcomeScore : metacosmModel, VersusOutcomeScoreish
 	
 	public typealias Value = Score.Value
 	public var value: Value {
-		switch self.versusOutcome.value {
+		switch self.versusOutcome?.value ?? .unset {
 			case .win: return 6
 			case .draw: return 3
 			case .lose: return 0
@@ -61,7 +66,7 @@ public class VersusOutcomeScore : metacosmModel, VersusOutcomeScoreish
 	}
 	
 	public override var isUnset: Bool {
-		if self.versusOutcome.isUnset { return true }
+		if self.versusOutcome?.isUnset ?? true { return true }
 		return false
 	}
 }
