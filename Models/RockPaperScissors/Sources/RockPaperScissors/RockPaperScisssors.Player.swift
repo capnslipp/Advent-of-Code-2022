@@ -27,6 +27,9 @@ public protocol Playerish : metacosmModelish
 @objcMembers
 public class Player : metacosmModel, Playerish
 {
+	public static let noPlayerSentinel: Playerish = Player(name: "«No Player»", shape: Shape(.unset)).surrogate()
+	
+	
 	public init(name: String, shape: Shapeish) {
 		self.name = name
 		self.shape = shape.surrogate()
@@ -59,4 +62,10 @@ public extension Playerish
 	func surrogate() -> metacosmSurrogate & Playerish {
 		return surrogate() as! metacosmSurrogate & Playerish
 	}
+}
+
+
+public extension Playerish where Self == Playerish
+{
+	static var noPlayerSentinel: Playerish { Player.noPlayerSentinel }
 }

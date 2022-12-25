@@ -18,7 +18,11 @@ public protocol Roundish : metacosmModelish
 	var player1: Playerish { get }
 	var player2: Playerish { get }
 	
+	var currentWinnerPlayer: Playerish { get }
 	var winnerPlayer: Playerish { get }
+	
+	var isReady: Bool { get }
+	var isPlayed: Bool { get }
 }
 
 
@@ -36,34 +40,71 @@ public class Round : metacosmModel, Roundish
 	
 	public let player1: Playerish
 	public let player2: Playerish
+	public static let drawPlayerSentinel: Playerish = Player(name: "«Draw Player»", shape: Shape(.unset)).surrogate()
 	
-	public static let drawPlayerSentinel: Playerish = Player(name: "«Draw Sentinel»", shape: Shape(.unset)).surrogate()
+	
+	// MARK: [current]WinnerPlayer
+	
+	private enum WinnerId { case player1, player2, draw }
+	private var _winnerId: WinnerId?
+	
+	public private(set) var currentWinnerPlayer: Playerish = .noPlayerSentinel
+	
+	public lazy var winnerPlayer: Playerish = metacosmDelegatingSurrogate{ [weak self] in
+		self?.currentWinnerPlayer.surrogate()
+	} as! metacosmDelegatingSurrogate & Playerish
 	
 	
-	private var _currentWinnerPlayer: Playerish {
-		let player1Shape = self.player1.shape
-		let player2Shape = self.player2.shape
-		
-		if player1Shape > player2Shape {
-			return self.player1
-		} else if player1Shape < player2Shape {
-			return self.player2
-		} else {
-			return Round.drawPlayerSentinel
+	// MARK: `play()`/`reset()` and Winner Calculation
+	
+	private enum State { case unstarted, played, resetted }
+	private var _state: State = .unstarted
+	public var isReady: Bool { _state == .unstarted || _state == .resetted }
+	public var isPlayed: Bool { _state == .played }
+	
+	public func start() { play() }
+	public func play()
+	{
+		guard _state != .played else {
+			fatalError("Round has already been `play()`ed— `reset()` the round first before `play()`ing again.")
 		}
+		calculateWinner()
 	}
-	public lazy var winnerPlayer: Playerish = metacosmDelegatingSurrogate{ [weak self] in self?._currentWinnerPlayer.surrogate() } as! metacosmDelegatingSurrogate & Playerish
 	
+	private func calculateWinner()
+	{
+		_winnerId = { switch self.player1.shape.value <=> self.player2.shape.value {
+			case .orderedDescending: return .player1
+			case .orderedAscending: return .player2
+			case .orderedSame: return .draw
+		}}()
+		self.currentWinnerPlayer = { switch _winnerId! {
+			case .player1: return player1
+			case .player2: return player2
+			case .draw: return Self.drawPlayerSentinel
+		}}()
+	}
+	
+	public func reset()
+	{
+		resetWinner()
+	}
+	
+	private func resetWinner()
+	{
+		_winnerId = nil
+		self.currentWinnerPlayer = .noPlayerSentinel
+	}
 	
 	
 	// MARK: metacosmModelish Conformance
 	
 	public override var isInvalid: Bool {
-		guard !self.isUnset else { return true }
 		return false
 	}
 	
 	public override var isUnset: Bool {
+		if self.isReady { return true }
 		return false
 	}
 }
@@ -77,4 +118,11 @@ public extension Roundish
 	func surrogate() -> metacosmSurrogate & Roundish {
 		return surrogate() as! metacosmSurrogate & Roundish
 	}
+}
+
+
+public extension Roundish where Self == Roundish
+{
+	static var noPlayerSentinel: Playerish { Player.noPlayerSentinel }
+	static var drawPlayerSentinel: Playerish { Round.drawPlayerSentinel }
 }
