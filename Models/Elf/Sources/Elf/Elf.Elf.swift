@@ -34,7 +34,7 @@ public class Elf : metacosmModel, Elfish
 		_foodPackModel = FoodPack(foodItems: [])
 		defer { _foodPackModel.owner = self.surrogate() }
 		
-		self.shape = Shape(.unset).surrogate()
+		_shape = Shape(.unset).surrogate()
 		
 		super.init()
 	}
@@ -45,7 +45,7 @@ public class Elf : metacosmModel, Elfish
 		_foodPackModel = foodPackModel
 		defer { _foodPackModel.owner = self.surrogate() }
 		
-		self.shape = Shape(.unset).surrogate()
+		_shape = Shape(.unset).surrogate()
 		
 		super.init()
 	}
@@ -56,7 +56,7 @@ public class Elf : metacosmModel, Elfish
 		_foodPackModel = FoodPack(foodItems: [])
 		defer { _foodPackModel.owner = self.surrogate() }
 		
-		self.shape = shape.surrogate()
+		_shape = shape
 		
 		super.init()
 	}
@@ -70,7 +70,8 @@ public class Elf : metacosmModel, Elfish
 	
 	// MARK: RockPaperScissors.Playerish Conformance
 	
-	public let shape: RockPaperScissors.Shapeish
+	private let _shape: RockPaperScissors.Shapeish
+	public var shape: RockPaperScissors.Shapeish { _shape.surrogate() }
 	
 	
 	// MARK: metacosmModelish Conformance
