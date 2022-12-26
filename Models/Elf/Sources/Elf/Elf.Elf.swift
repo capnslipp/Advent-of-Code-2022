@@ -8,13 +8,14 @@
 import Foundation
 import metacosm
 import With
+import RockPaperScissors
 
 
 
 // MARK: - Protocol
 
 @objc
-public protocol Elfish : metacosmModelish
+public protocol Elfish : metacosmModelish, RockPaperScissors.Playerish
 {
 	var name: String { get }
 	
@@ -33,6 +34,8 @@ public class Elf : metacosmModel, Elfish
 		_foodPackModel = FoodPack(foodItems: [])
 		defer { _foodPackModel.owner = self.surrogate() }
 		
+		self.shape = Shape(.unset).surrogate()
+		
 		super.init()
 	}
 	
@@ -42,6 +45,19 @@ public class Elf : metacosmModel, Elfish
 		_foodPackModel = foodPackModel
 		defer { _foodPackModel.owner = self.surrogate() }
 		
+		self.shape = Shape(.unset).surrogate()
+		
+		super.init()
+	}
+	
+	public init(name: String, shape: Shapeish) {
+		self.name = name
+		
+		_foodPackModel = FoodPack(foodItems: [])
+		defer { _foodPackModel.owner = self.surrogate() }
+		
+		self.shape = shape.surrogate()
+		
 		super.init()
 	}
 	
@@ -50,6 +66,11 @@ public class Elf : metacosmModel, Elfish
 	
 	var _foodPackModel: FoodPack
 	public var foodPack: FoodPackish { _foodPackModel.surrogate() }
+	
+	
+	// MARK: RockPaperScissors.Playerish Conformance
+	
+	public let shape: RockPaperScissors.Shapeish
 	
 	
 	// MARK: metacosmModelish Conformance
