@@ -55,9 +55,6 @@ for elf in party.elves {
 	print("\(elf.name): \(elf.foodPack.totalCalorieCount.value) calories")
 }
 
-let foodPacks = party.elves.map{ $0.foodPack }
-let calorieCountedFoodPacks = CalorieCountedFoodPacks(foodPacks: foodPacks, mostLimit: RecordCountLimit(value: 3), leastLimit: RecordCountLimit(value: 3))
-
 let highestCalorieCountFoodPackEvles = party.elvesWithMostCaloriesInFoodPacks
 print("Elves with highest calorie count in food pack: ")
 for anElf in highestCalorieCountFoodPackEvles {
