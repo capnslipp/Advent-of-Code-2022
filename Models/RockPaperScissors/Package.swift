@@ -14,6 +14,7 @@ let package = Package(
     dependencies: [
         // Dependencies declare other packages that this package depends on.
         .package(name: "metacosm", path: "../../../metacosm/"),
+        .package(name: "AoC2022Support", path: "../../Support/"),
         .package(url: "https://github.com/capnslipp/With.git", branch: "master"),
     ],
     targets: [
@@ -21,7 +22,7 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "RockPaperScissors",
-            dependencies: [ "metacosm", "With" ]),
+            dependencies: [ "metacosm", "AoC2022Support", "With" ]),
         .testTarget(
             name: "RockPaperScissorsTests",
             dependencies: ["RockPaperScissors"]),

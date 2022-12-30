@@ -14,6 +14,7 @@ let package = Package(
     dependencies: [
         // Dependencies declare other packages that this package depends on.
         .package(name: "metacosm", path: "../../../metacosm/"),
+        .package(name: "AoC2022Support", path: "../../Support/"),
         .package(url: "https://github.com/capnslipp/With.git", branch: "master"),
         .package(url: "https://github.com/capnslipp/NilCoalescingAssignmentOperators.git", branch: "master"),
         .package(name: "RockPaperScissors", path: "../RockPaperScissors/"),
@@ -23,7 +24,7 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "Elf",
-            dependencies: [ "metacosm", "With", "NilCoalescingAssignmentOperators", "RockPaperScissors" ]),
+            dependencies: [ "metacosm", "AoC2022Support", "With", "NilCoalescingAssignmentOperators", "RockPaperScissors" ]),
         .testTarget(
             name: "ElfTests",
             dependencies: ["Elf"]),

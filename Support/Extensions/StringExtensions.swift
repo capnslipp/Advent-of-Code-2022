@@ -9,7 +9,7 @@ import Foundation
 
 
 
-extension StringProtocol
+public extension StringProtocol
 {
 	/// Alias of `components(separatedBy:)`, so it's easy to find this when code completing for `split…`.
 	func split(separator: CharacterSet) -> [String] {

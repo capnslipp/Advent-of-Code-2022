@@ -18,7 +18,7 @@ public typealias ModelSurrogate = ModelSurrogateWrapper
 	case model(ModelT)
 	case getClosure(() -> ModelT)
 	
-	var model: ModelT {
+	public var model: ModelT {
 		get {
 			switch self {
 				case .uninitialized: fatalError("ModelSurrogateWrapper must be initialized before use.")

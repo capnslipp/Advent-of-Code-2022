@@ -10,17 +10,17 @@ import Foundation
 
 
 @propertyWrapper
-enum Lazy<Value>
+public enum Lazy<Value>
 {
 	case uninitialized(() -> Value)
 	case initialized(Value)
 	
 	
-	init(wrappedValue: @autoclosure @escaping () -> Value) {
+	public init(wrappedValue: @autoclosure @escaping () -> Value) {
 		self = .uninitialized(wrappedValue)
 	}
 	
-	var wrappedValue: Value {
+	public var wrappedValue: Value {
 		mutating get {
 			switch self {
 				case .uninitialized(let initializer):

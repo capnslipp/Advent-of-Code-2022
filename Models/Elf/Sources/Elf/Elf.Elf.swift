@@ -7,6 +7,7 @@
 
 import Foundation
 import metacosm
+import AoC2022Support
 import With
 import RockPaperScissors
 
