@@ -32,14 +32,13 @@ public class Player : metacosmModel, Playerish
 	
 	public init(name: String, shape: Shapeish) {
 		self.name = name
-		_shape = shape
+		_shape = .init(shape)
 	}
 	
 	
 	public let name: String
 	
-	private let _shape: Shapeish
-	public var shape: Shapeish { _shape.surrogate() }
+	@Surrogate public var shape: Shapeish
 	
 	
 	// MARK: metacosmModelish Conformance

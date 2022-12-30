@@ -37,28 +37,24 @@ public protocol Roundish : metacosmModelish
 public class Round : metacosmModel, Roundish
 {
 	public init(player1: Playerish, player2: Playerish) {
-		_player1 = player1
-		_player2 = player2
+		_player1 = .init(player1)
+		_player2 = .init(player2)
+		
+		_player1Outcome = .init(model: VersusOutcome())
+		_player2Outcome = .init(model: VersusOutcome())
+		
+		_player1Score = .init(model: Score())
+		_player2Score = .init(model: Score())
 	}
 	
 	
-	private var _player1: Playerish
-	public var player1: Playerish { _player1.surrogate() }
+	@Surrogate public var player1: Playerish
+	@ModelSurrogate<VersusOutcome, VersusOutcomeish> public var player1Outcome: VersusOutcomeish
+	@ModelSurrogate<Score, Scoreish> public var player1Score: Scoreish
 	
-	private var _player1OutcomeModel: VersusOutcome = VersusOutcome()
-	public var player1Outcome: VersusOutcomeish { _player1OutcomeModel.surrogate() }
-	
-	private var _player1ScoreModel = Score()
-	public var player1Score: Scoreish { _player1ScoreModel.surrogate() }
-	
-	private var _player2: Playerish
-	public var player2: Playerish { _player2.surrogate() }
-	
-	private var _player2OutcomeModel: VersusOutcome = VersusOutcome()
-	public var player2Outcome: VersusOutcomeish { _player2OutcomeModel.surrogate() }
-	
-	private var _player2ScoreModel = Score()
-	public var player2Score: Scoreish { _player2ScoreModel.surrogate() }
+	@Surrogate public var player2: Playerish
+	@ModelSurrogate<VersusOutcome, VersusOutcomeish> public var player2Outcome: VersusOutcomeish
+	@ModelSurrogate<Score, Scoreish> public var player2Score: Scoreish
 	
 	public static let drawPlayerSentinel: Playerish = Player(name: "«Draw Player»", shape: Shape(.unset)).surrogate()
 	
@@ -104,18 +100,18 @@ public class Round : metacosmModel, Roundish
 			case .player2: return player2
 			case .draw: return Self.drawPlayerSentinel
 		}}()
-		_player1OutcomeModel.value = { switch _winnerId! {
+		_player1Outcome.model.value = { switch _winnerId! {
 			case .player1: return .won
 			case .player2: return .lost
 			case .draw: return .draw
 		}}()
-		_player2OutcomeModel.value = { switch _winnerId! {
+		_player2Outcome.model.value = { switch _winnerId! {
 			case .player1: return .lost
 			case .player2: return .won
 			case .draw: return .draw
 		}}()
-		_player1ScoreModel.value = _player1OutcomeModel.score.value + self.player1.shape.score.value
-		_player2ScoreModel.value = _player2OutcomeModel.score.value + self.player2.shape.score.value
+		_player1Score.model.value = _player1Outcome.model.score.value + self.player1.shape.score.value
+		_player2Score.model.value = _player2Outcome.model.score.value + self.player2.shape.score.value
 	}
 	
 	public func reset()
@@ -128,10 +124,10 @@ public class Round : metacosmModel, Roundish
 	{
 		_winnerId = nil
 		_currentWinnerPlayer = .noPlayerSentinel
-		_player1OutcomeModel.value = .unset
-		_player2OutcomeModel.value = .unset
-		_player1ScoreModel.value = 0
-		_player2ScoreModel.value = 0
+		_player1Outcome.model.value = .unset
+		_player2Outcome.model.value = .unset
+		_player1Score.model.value = 0
+		_player2Score.model.value = 0
 	}
 	
 	

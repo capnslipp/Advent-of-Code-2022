@@ -27,14 +27,16 @@ public protocol Shapeish : metacosmModelish
 @objcMembers
 public class Shape : metacosmModel, Shapeish
 {
-	public override init() {}
+	public override convenience init() {
+		self.init(value: .unset)
+	}
 	
 	public init(value: Value) {
 		self.value = value
 		
 		super.init()
 		
-		_ = _scoreModel
+		_score = .init(model: ShapeScore(shape: self.surrogate()))
 	}
 	public convenience init(_ value: Value) {
 		self.init(value: value)
@@ -70,8 +72,7 @@ public class Shape : metacosmModel, Shapeish
 	
 	// MARK: Score
 	
-	private lazy var _scoreModel: ShapeScore = ShapeScore(shape: self.surrogate())
-	public var score: ShapeScoreish { _scoreModel.surrogate() }
+	@ModelSurrogate<ShapeScore, ShapeScoreish> public var score: ShapeScoreish
 	
 	
 	// MARK: metacosmModelish Conformance

@@ -27,14 +27,16 @@ public protocol VersusOutcomeish : metacosmModelish
 @objcMembers
 public class VersusOutcome : metacosmModel, VersusOutcomeish
 {
-	public override init() {}
+	public override convenience init() {
+		self.init(value: .unset)
+	}
 	
 	public init(value: Value) {
 		self.value = value
 		
 		super.init()
 		
-		_ = _scoreModel
+		_score = .init(get: self._scoreModel)
 	}
 	public convenience init(_ value: Value) {
 		self.init(value: value)
@@ -75,7 +77,7 @@ public class VersusOutcome : metacosmModel, VersusOutcomeish
 	// MARK: Score
 	
 	private lazy var _scoreModel: VersusOutcomeScore = VersusOutcomeScore(versusOutcome: self.surrogate())
-	public var score: VersusOutcomeScoreish { _scoreModel.surrogate() }
+	@ModelSurrogate<VersusOutcomeScore, VersusOutcomeScoreish> public var score: VersusOutcomeScoreish
 	
 	
 	// MARK: metacosmModelish Conformance

@@ -31,6 +31,8 @@ public class DynamicShape : metacosmModel, DynamicShapeish
 {
 	public init(updator: @escaping () -> Value) {
 		_updator = updator
+		
+		_shape = .init(model: Shape())
 	}
 	
 	
@@ -38,8 +40,7 @@ public class DynamicShape : metacosmModel, DynamicShapeish
 	var _isRunningUpdator: Bool = false
 	
 	
-	private var _shapeModel = Shape()
-	public var shape: Shapeish { _shapeModel.surrogate() }
+	@ModelSurrogate<Shape, Shapeish> public var shape: Shapeish
 	
 	
 	// MARK: Value
@@ -47,8 +48,8 @@ public class DynamicShape : metacosmModel, DynamicShapeish
 	public typealias Value = Shape.Value
 	
 	private var _staticValue: Value {
-		get { _shapeModel.value }
-		set { _shapeModel.value = newValue }
+		get { _shape.model.value }
+		set { _shape.model.value = newValue }
 	}
 	
 	public var value: Value {
@@ -64,7 +65,7 @@ public class DynamicShape : metacosmModel, DynamicShapeish
 	
 	// MARK: Score
 	
-	public var score: ShapeScoreish { _shapeModel.score }
+	public var score: ShapeScoreish { _shape.model.score }
 	
 	
 	// MARK: metacosmModelish Conformance
