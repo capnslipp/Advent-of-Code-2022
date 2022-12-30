@@ -44,6 +44,8 @@ public class PartyOfElves : metacosmModel, PartyOfElvesish
 		_calorieCountedFoodPacksModel_lazyStorage =?? calorieCountedFoodPacksModel
 		
 		super.init()
+		
+		_calorieCountedFoodPacks = .init(get: self._calorieCountedFoodPacksModel)
 	}
 	
 	
@@ -78,7 +80,7 @@ public class PartyOfElves : metacosmModel, PartyOfElvesish
 		)
 		return _calorieCountedFoodPacksModel_lazyStorage!
 	}
-	public var calorieCountedFoodPacks: CalorieCountedFoodPacksish { _calorieCountedFoodPacksModel.surrogate() }
+	@ModelSurrogate<CalorieCountedFoodPacks, CalorieCountedFoodPacksish> public var calorieCountedFoodPacks: CalorieCountedFoodPacksish
 	
 	public var elfWithMostCaloriesInFoodPack: Elfish? {
 		_calorieCountedFoodPacksModel.foodPacksWithMostCalories.first?.owner!

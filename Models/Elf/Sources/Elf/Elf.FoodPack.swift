@@ -20,7 +20,7 @@ public protocol FoodPackish : metacosmModelish
 	
 	var foodItems: [FoodItemish] { get }
 	
-	var totalCalorieCount: DynamicCalorieCountish { get }
+	var totalCalorieCount: CalorieCountish { get }
 }
 
 
@@ -35,6 +35,8 @@ public class FoodPack : metacosmModel, FoodPackish
 		_foodItems = .init(foodItems)
 		
 		super.init()
+		
+		_totalCalorieCount = .init(get: self._totalCalorieCountModel)
 	}
 	
 	
@@ -58,7 +60,7 @@ public class FoodPack : metacosmModel, FoodPackish
 	
 	var _totalCalorieCountValue: Int?
 	
-	lazy var _totalCalorieCount = DynamicCalorieCount{ [self] in
+	lazy var _totalCalorieCountModel = DynamicCalorieCount{ [self] in
 		_totalCalorieCountValue ??= {
 			_foodItems.storage.reduce(0) { totalValue, foodItem in
 				totalValue + foodItem.calorieCount.value
@@ -66,7 +68,7 @@ public class FoodPack : metacosmModel, FoodPackish
 		}()
 		return _totalCalorieCountValue!
 	}
-	public var totalCalorieCount: DynamicCalorieCountish { _totalCalorieCount.surrogate() }
+	@ModelSurrogate<DynamicCalorieCount, CalorieCountish> public var totalCalorieCount: CalorieCountish
 	
 	
 	// MARK: metacosmModelish Conformance
