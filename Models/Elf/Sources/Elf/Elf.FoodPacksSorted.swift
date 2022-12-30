@@ -34,11 +34,11 @@ public class FoodPacksSorted : metacosmModel, FoodPacksSortedish
 	}
 	
 	public init(foodPacks: [FoodPackish], comparator: @escaping FoodPackComparator, limit: RecordCountLimitish? = nil) {
-		_foodPacks = foodPacks
+		_foodPacks = .init(foodPacks)
 		defer { queueRecalcOfSortedFoodPacks() }
 		
 		self.comparator = comparator
-		self.limit = limit ?? RecordCountLimit()
+		_limit = .init(limit ?? RecordCountLimit())
 		
 		super.init()
 	}
@@ -46,13 +46,12 @@ public class FoodPacksSorted : metacosmModel, FoodPacksSortedish
 	
 	// MARK: `FoodPackish` Array
 	
-	public var _foodPacks: [FoodPackish] = []
-	public var foodPacks: [FoodPackish] {
-		get { _foodPacks.map{ $0.surrogate() } }
-		set {
-			_foodPacks = newValue
-			queueRecalcOfSortedFoodPacks()
-		}
+	@SurrogateArray public var foodPacks: [FoodPackish] {
+		didSet { queueRecalcOfSortedFoodPacks() }
+	}
+	
+	public func replace(foodPacks: [FoodPackish]) {
+		_foodPacks.storage = foodPacks
 	}
 	
 	
@@ -65,7 +64,7 @@ public class FoodPacksSorted : metacosmModel, FoodPacksSortedish
 	
 	// MARK: Limit
 	
-	public let limit: RecordCountLimitish
+	@Surrogate public var limit: RecordCountLimitish
 	
 	
 	// MARK: Calculated Most/Least Info
@@ -93,7 +92,7 @@ public class FoodPacksSorted : metacosmModel, FoodPacksSortedish
 		
 		var earliest: [FoodPackish] = []
 		
-		for aFoodPack in _foodPacks {
+		for aFoodPack in _foodPacks.storage {
 			if earliest.isEmpty {
 				earliest = [ aFoodPack ]
 			}
@@ -119,7 +118,7 @@ public class FoodPacksSorted : metacosmModel, FoodPacksSortedish
 	}
 	
 	public override var isUnset: Bool {
-		guard !_foodPacks.isEmpty else { return true }
+		guard !_foodPacks.storage.isEmpty else { return true }
 		return false
 	}
 }

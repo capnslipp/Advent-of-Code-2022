@@ -35,44 +35,36 @@ public protocol PartyOfElvesish : metacosmModelish
 @objcMembers
 public class PartyOfElves : metacosmModel, PartyOfElvesish
 {
-	public override init() {
-	}
-	
-	public convenience init(elves: [Elfish]) {
-		self.init(elves: elves)
+	public override convenience init() {
+		self.init(elves: [])
 	}
 	
 	public init(elves: [Elfish], takingCalorieCountedFoodPacks calorieCountedFoodPacksModel: CalorieCountedFoodPacks? = nil) {
-		_elves = elves
+		_elves = .init(elves)
 		_calorieCountedFoodPacksModel_lazyStorage =?? calorieCountedFoodPacksModel
 		
 		super.init()
 	}
 	
 	
-	public var _elves: [Elfish] = []
-	public var elves: [Elfish] { _elves.map{ $0.surrogate() } }
+	@SurrogateArray public var elves: [Elfish]
 	
-	public var isEmpty: Bool {
-		_elves.isEmpty
-	}
+	public var isEmpty: Bool { _elves.storage.isEmpty }
 	
 	public func add(elf newElf: Elfish) {
-		_elves.append(newElf)
-		_calorieCountedFoodPacksModel.foodPacks.append(newElf.foodPack)
+		_elves.storage.append(newElf)
+		_calorieCountedFoodPacksModel.add(foodPack: newElf.foodPack)
 	}
 	
 	public func add(elves newElves: [Elfish]) {
-		_elves.append(contentsOf: newElves)
-		_calorieCountedFoodPacksModel.foodPacks.append(contentsOf: newElves.map(\.foodPack))
+		_elves.storage.append(contentsOf: newElves)
+		_calorieCountedFoodPacksModel.add(foodPacks: newElves.map(\.foodPack))
 	}
 	
 	
 	// MARK: - FoodPacks
 	
-	public var foodPacks: [FoodPackish] {
-		_elves.map(\.foodPack)
-	}
+	public var foodPacks: [FoodPackish] { _elves.storage.map(\.foodPack) }
 	
 	
 	// MARK: - Calorie-Counted FoodPacks

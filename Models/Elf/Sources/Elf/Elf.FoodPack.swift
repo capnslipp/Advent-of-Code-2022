@@ -30,33 +30,28 @@ public protocol FoodPackish : metacosmModelish
 @objcMembers
 public class FoodPack : metacosmModel, FoodPackish
 {
-	public override init() {
-		_foodItems = []
-	}
-	
-	public init(owner: Elfish? = nil, foodItems: [FoodItemish]) {
+	public init(owner: Elfish? = nil, foodItems: [FoodItemish] = []) {
 		self.owner = owner
-		_foodItems = foodItems
+		_foodItems = .init(foodItems)
+		
+		super.init()
 	}
 	
 	
 	public var owner: Elfish?
 	
 	
-	public var _foodItems: [FoodItemish] = []
-	public var foodItems: [FoodItemish] { _foodItems.map{ $0.surrogate() } }
+	@SurrogateArray public var foodItems: [FoodItemish]
 	
-	public var isEmpty: Bool {
-		_foodItems.isEmpty
-	}
+	public var isEmpty: Bool { _foodItems.storage.isEmpty }
 	
 	func add(foodItem: FoodItemish) {
-		_foodItems.append(foodItem)
+		_foodItems.storage.append(foodItem)
 		_totalCalorieCountValue = nil
 	}
 	
 	func add(foodItems: [FoodItemish]) {
-		_foodItems.append(contentsOf: foodItems)
+		_foodItems.storage.append(contentsOf: foodItems)
 		_totalCalorieCountValue = nil
 	}
 	
@@ -65,7 +60,7 @@ public class FoodPack : metacosmModel, FoodPackish
 	
 	lazy var _totalCalorieCount = DynamicCalorieCount{ [self] in
 		_totalCalorieCountValue ??= {
-			_foodItems.reduce(0) { totalValue, foodItem in
+			_foodItems.storage.reduce(0) { totalValue, foodItem in
 				totalValue + foodItem.calorieCount.value
 			}
 		}()

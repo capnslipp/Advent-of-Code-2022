@@ -36,15 +36,17 @@ public protocol CalorieCountedFoodPacksish : metacosmModelish
 public class CalorieCountedFoodPacks : metacosmModel, CalorieCountedFoodPacksish
 {
 	public override init() {
-		self.mostLimit = RecordCountLimit()
-		self.leastLimit = RecordCountLimit()
+		_foodPacks = .init(wrappedValue: [])
+		
+		_mostLimit = .init(wrappedValue: RecordCountLimit())
+		_leastLimit = .init(wrappedValue: RecordCountLimit())
 	}
 	
 	public init(foodPacks: [FoodPackish], mostLimit: RecordCountLimitish? = nil, leastLimit: RecordCountLimitish? = nil) {
-		_foodPacks = foodPacks
+		_foodPacks = .init(wrappedValue: foodPacks)
 		
-		self.mostLimit = mostLimit ?? RecordCountLimit()
-		self.leastLimit = leastLimit ?? RecordCountLimit()
+		_mostLimit = .init(wrappedValue: mostLimit ?? RecordCountLimit())
+		_leastLimit = .init(wrappedValue: leastLimit ?? RecordCountLimit())
 		
 		super.init()
 	}
@@ -52,26 +54,31 @@ public class CalorieCountedFoodPacks : metacosmModel, CalorieCountedFoodPacksish
 	
 	// MARK: `FoodPackish` Array
 	
-	public var _foodPacks: [FoodPackish] = []
-	public var foodPacks: [FoodPackish] {
-		get { _foodPacks.map{ $0.surrogate() } }
-		set {
-			_foodPacks = newValue
-			_foodPacksSortedByMostCaloriesModel_lazyStorage?.foodPacks = _foodPacks
-			_foodPacksSortedByLeastCaloriesModel_lazyStorage?.foodPacks = _foodPacks
+	@SurrogateArray public var foodPacks: [FoodPackish] {
+		didSet {
+			_foodPacksSortedByMostCaloriesModel_lazyStorage?.replace(foodPacks: _foodPacks.storage)
+			_foodPacksSortedByLeastCaloriesModel_lazyStorage?.replace(foodPacks: _foodPacks.storage)
 		}
 	}
 	
+	public func add(foodPack newFoodPack: FoodPackish) {
+		_foodPacks.storage.append(newFoodPack)
+	}
+	
+	public func add(foodPacks newFoodPacks: [FoodPackish]) {
+		_foodPacks.storage.append(contentsOf: newFoodPacks)
+	}
+	
 	public var isEmpty: Bool {
-		_foodPacks.isEmpty
+		_foodPacks.storage.isEmpty
 	}
 	
 	
 	// MARK: Limits
 	
-	public let mostLimit: RecordCountLimitish
+	@Surrogate public var mostLimit: RecordCountLimitish
 	
-	public let leastLimit: RecordCountLimitish
+	@Surrogate public var leastLimit: RecordCountLimitish
 	
 	
 	// MARK: Calculated Most/Least Info
@@ -79,7 +86,7 @@ public class CalorieCountedFoodPacks : metacosmModel, CalorieCountedFoodPacksish
 	var _foodPacksSortedByMostCaloriesModel_lazyStorage: FoodPacksSorted?
 	var _foodPacksSortedByMostCaloriesModel: FoodPacksSorted {
 		_foodPacksSortedByMostCaloriesModel_lazyStorage ??= FoodPacksSorted(
-			foodPacks: _foodPacks,
+			foodPacks: _foodPacks.storage,
 			comparator: { (earlier, later) in earlier.totalCalorieCount > later.totalCalorieCount },
 			limit: self.mostLimit
 		)
@@ -93,7 +100,7 @@ public class CalorieCountedFoodPacks : metacosmModel, CalorieCountedFoodPacksish
 	private var _foodPacksSortedByLeastCaloriesModel_lazyStorage: FoodPacksSorted?
 	private var _foodPacksSortedByLeastCaloriesModel: FoodPacksSorted {
 		_foodPacksSortedByLeastCaloriesModel_lazyStorage ??= FoodPacksSorted(
-			foodPacks: _foodPacks,
+			foodPacks: _foodPacks.storage,
 			comparator: { (earlier, later) in earlier.totalCalorieCount < later.totalCalorieCount },
 			limit: self.leastLimit
 		)

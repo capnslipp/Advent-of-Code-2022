@@ -30,16 +30,15 @@ public class FoodItem : metacosmModel, FoodItemish
 	}
 	
 	public init(calorieCount: CalorieCountish) {
-		_calorieCount = calorieCount
+		_calorieCount = .init(calorieCount)
 	}
 	
 	public init(calorieCountValue: Int) {
-		_calorieCount = CalorieCount(value: calorieCountValue)
+		_calorieCount = .init(CalorieCount(value: calorieCountValue).surrogate())
 	}
 	
 	
-	public var _calorieCount: CalorieCountish
-	public var calorieCount: CalorieCountish { _calorieCount.surrogate() }
+	@Surrogate public var calorieCount: CalorieCountish
 	
 	
 	// MARK: metacosmModelish Conformance

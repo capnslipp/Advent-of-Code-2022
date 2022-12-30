@@ -31,10 +31,10 @@ public class Elf : metacosmModel, Elfish
 {
 	public override init() {
 		self.name = ""
-		_foodPackModel = FoodPack(foodItems: [])
-		defer { _foodPackModel.owner = self.surrogate() }
+		_foodPack = .init(FoodPack(foodItems: []))
+		defer { _foodPack.model.owner = self.surrogate() }
 		
-		_shape = Shape(.unset).surrogate()
+		_shape = .init(Shape(.unset).surrogate())
 		
 		super.init()
 	}
@@ -42,10 +42,10 @@ public class Elf : metacosmModel, Elfish
 	public init(name: String, takingFoodPack foodPackModel: FoodPack) {
 		self.name = name
 		
-		_foodPackModel = foodPackModel
-		defer { _foodPackModel.owner = self.surrogate() }
+		_foodPack = .init(foodPackModel)
+		defer { _foodPack.model.owner = self.surrogate() }
 		
-		_shape = Shape(.unset).surrogate()
+		_shape = .init(Shape(.unset).surrogate())
 		
 		super.init()
 	}
@@ -53,10 +53,10 @@ public class Elf : metacosmModel, Elfish
 	public init(name: String, shape: Shapeish) {
 		self.name = name
 		
-		_foodPackModel = FoodPack(foodItems: [])
-		defer { _foodPackModel.owner = self.surrogate() }
+		_foodPack = .init(FoodPack(foodItems: []))
+		defer { _foodPack.model.owner = self.surrogate() }
 		
-		_shape = shape
+		_shape = .init(shape)
 		
 		super.init()
 	}
@@ -64,14 +64,12 @@ public class Elf : metacosmModel, Elfish
 	
 	public let name: String
 	
-	var _foodPackModel: FoodPack
-	public var foodPack: FoodPackish { _foodPackModel.surrogate() }
+	@ModelSurrogate<FoodPack, FoodPackish> public var foodPack: FoodPackish
 	
 	
 	// MARK: RockPaperScissors.Playerish Conformance
 	
-	private let _shape: RockPaperScissors.Shapeish
-	public var shape: RockPaperScissors.Shapeish { _shape.surrogate() }
+	@Surrogate public var shape: RockPaperScissors.Shapeish
 	
 	
 	// MARK: metacosmModelish Conformance
