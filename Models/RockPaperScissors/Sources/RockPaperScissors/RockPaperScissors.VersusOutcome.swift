@@ -14,7 +14,7 @@ import AoC2022Support
 // MARK: - Protocol
 
 @objc
-public protocol VersusOutcomeish : metacosmModelish
+public protocol VersusOutcomeish : metacosmModelish, Modelish
 {
 	var value: VersusOutcome.Value { get }
 	
@@ -26,18 +26,22 @@ public protocol VersusOutcomeish : metacosmModelish
 // MARK: - Model
 
 @objcMembers
-public class VersusOutcome : metacosmModel, VersusOutcomeish
+public class VersusOutcome : metacosmModel, Model, VersusOutcomeish
 {
+	public typealias ProtocolType = VersusOutcomeish
+	
+	
 	public override convenience init() {
 		self.init(value: .unset)
 	}
 	
-	public init(value: Value) {
+	public init(value: Value)
+	{
 		self.value = value
 		
-		super.init()
+		defer { _score.owner = self }
 		
-		_score = .init(get: self._scoreModel)
+		super.init()
 	}
 	public convenience init(_ value: Value) {
 		self.init(value: value)
@@ -78,7 +82,7 @@ public class VersusOutcome : metacosmModel, VersusOutcomeish
 	// MARK: Score
 	
 	private lazy var _scoreModel: VersusOutcomeScore = VersusOutcomeScore(versusOutcome: self.surrogate())
-	@ModelSurrogate<VersusOutcomeScore, VersusOutcomeScoreish> public var score: VersusOutcomeScoreish
+	@SurrogateOfModel(\VersusOutcome._scoreModel) public var score: VersusOutcomeScoreish
 	
 	
 	// MARK: metacosmModelish Conformance

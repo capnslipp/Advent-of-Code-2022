@@ -14,7 +14,7 @@ import AoC2022Support
 // MARK: - Protocol
 
 @objc
-public protocol Shapeish : metacosmModelish
+public protocol Shapeish : metacosmModelish, Modelish
 {
 	var value: Shape.Value { get }
 	
@@ -26,18 +26,20 @@ public protocol Shapeish : metacosmModelish
 // MARK: - Model
 
 @objcMembers
-public class Shape : metacosmModel, Shapeish
+public class Shape : metacosmModel, Model, Shapeish
 {
+	public typealias ProtocolType = Shapeish
+	
+	
 	public override convenience init() {
 		self.init(value: .unset)
 	}
 	
 	public init(value: Value) {
 		self.value = value
+		defer { _score.owner = self }
 		
 		super.init()
-		
-		_score = .init(model: ShapeScore(shape: self.surrogate()))
 	}
 	public convenience init(_ value: Value) {
 		self.init(value: value)
@@ -73,7 +75,8 @@ public class Shape : metacosmModel, Shapeish
 	
 	// MARK: Score
 	
-	@ModelSurrogate<ShapeScore, ShapeScoreish> public var score: ShapeScoreish
+	private lazy var _scoreModel = ShapeScore(shape: self.surrogate())
+	@SurrogateOfModel(\Shape._scoreModel) public var score: ShapeScoreish
 	
 	
 	// MARK: metacosmModelish Conformance

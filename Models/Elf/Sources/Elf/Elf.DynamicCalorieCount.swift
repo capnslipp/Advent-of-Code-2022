@@ -7,13 +7,14 @@
 
 import Foundation
 import metacosm
+import AoC2022Support
 
 
 
 // MARK: - Protocol
 
 @objc
-public protocol DynamicCalorieCountish : CalorieCountish
+public protocol DynamicCalorieCountish : Modelish, CalorieCountish
 {
 }
 
@@ -22,8 +23,11 @@ public protocol DynamicCalorieCountish : CalorieCountish
 // MARK: - Model
 
 @objcMembers
-public class DynamicCalorieCount : metacosmModel, DynamicCalorieCountish
+public class DynamicCalorieCount : metacosmModel, Model, DynamicCalorieCountish
 {
+	public typealias ProtocolType = DynamicCalorieCountish
+	
+	
 	public init(updator: @escaping ()->Int) {
 		_updator = updator
 	}

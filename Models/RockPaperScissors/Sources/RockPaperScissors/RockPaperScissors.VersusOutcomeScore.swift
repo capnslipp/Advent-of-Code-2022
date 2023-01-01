@@ -7,13 +7,14 @@
 
 import Foundation
 import metacosm
+import AoC2022Support
 
 
 
 // MARK: - Protocol
 
 @objc
-public protocol VersusOutcomeScoreish : Scoreish
+public protocol VersusOutcomeScoreish : Scoreish, Modelish
 {
 	var versusOutcome: VersusOutcomeish! { get }
 	
@@ -28,8 +29,11 @@ public protocol VersusOutcomeScoreish : Scoreish
 // MARK: - Model
 
 @objcMembers
-public class VersusOutcomeScore : metacosmModel, VersusOutcomeScoreish
+public class VersusOutcomeScore : metacosmModel, Model, VersusOutcomeScoreish
 {
+	public typealias ProtocolType = VersusOutcomeScoreish
+	
+	
 	public init(versusOutcome: VersusOutcomeish) {
 		_versusOutcome = versusOutcome
 	}

@@ -14,7 +14,7 @@ import AoC2022Support
 // MARK: - Protocol
 
 @objc
-public protocol Playerish : metacosmModelish
+public protocol Playerish : metacosmModelish, Modelish
 {
 	var name: String { get }
 	
@@ -26,8 +26,11 @@ public protocol Playerish : metacosmModelish
 // MARK: - Model
 
 @objcMembers
-public class Player : metacosmModel, Playerish
+public class Player : metacosmModel, Model, Playerish
 {
+	public typealias ProtocolType = Playerish
+	
+	
 	public static let noPlayerSentinel: Playerish = Player(name: "«No Player»", shape: Shape(.unset)).surrogate()
 	
 	

@@ -14,7 +14,7 @@ import AoC2022Support
 // MARK: - Protocol
 
 @objc
-public protocol FoodItemish : metacosmModelish
+public protocol FoodItemish : Modelish, metacosmModelish
 {
 	var calorieCount: CalorieCountish { get }
 }
@@ -24,8 +24,11 @@ public protocol FoodItemish : metacosmModelish
 // MARK: - Model
 
 @objcMembers
-public class FoodItem : metacosmModel, FoodItemish
+public class FoodItem : metacosmModel, Model, FoodItemish
 {
+	public typealias ProtocolType = FoodItemish
+	
+	
 	private override init() {
 		fatalError("calorieCount not specified")
 	}

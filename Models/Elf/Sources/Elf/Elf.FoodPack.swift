@@ -15,7 +15,7 @@ import NilCoalescingAssignmentOperators
 // MARK: - Protocol
 
 @objc
-public protocol FoodPackish : metacosmModelish
+public protocol FoodPackish : metacosmModelish, Modelish
 {
 	var owner: Elfish? { get }
 	
@@ -29,15 +29,16 @@ public protocol FoodPackish : metacosmModelish
 // MARK: - Model
 
 @objcMembers
-public class FoodPack : metacosmModel, FoodPackish
+public class FoodPack : metacosmModel, Model, FoodPackish
 {
+	public typealias ProtocolType = FoodPackish
+	
+	
 	public init(owner: Elfish? = nil, foodItems: [FoodItemish] = []) {
 		self.owner = owner
 		_foodItems = .init(foodItems)
 		
 		super.init()
-		
-		_totalCalorieCount = .init(get: self._totalCalorieCountModel)
 	}
 	
 	
@@ -69,7 +70,7 @@ public class FoodPack : metacosmModel, FoodPackish
 		}()
 		return _totalCalorieCountValue!
 	}
-	@ModelSurrogate<DynamicCalorieCount, CalorieCountish> public var totalCalorieCount: CalorieCountish
+	public var totalCalorieCount: CalorieCountish { _totalCalorieCountModel.surrogate() }
 	
 	
 	// MARK: metacosmModelish Conformance

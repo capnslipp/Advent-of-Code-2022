@@ -7,13 +7,14 @@
 
 import Foundation
 import metacosm
+import AoC2022Support
 
 
 
 // MARK: - Protocol
 
 @objc
-public protocol Scoreish : metacosmModelish
+public protocol Scoreish : metacosmModelish, Modelish
 {
 	var value: Score.Value { get }
 }
@@ -23,8 +24,11 @@ public protocol Scoreish : metacosmModelish
 // MARK: - Model
 
 @objcMembers
-public class Score : metacosmModel, Scoreish
+public class Score : metacosmModel, Model, Scoreish
 {
+	public typealias ProtocolType = Scoreish
+	
+	
 	public override init() {}
 	
 	public init(value: Value) {

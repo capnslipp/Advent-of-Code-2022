@@ -7,13 +7,14 @@
 
 import Foundation
 import metacosm
+import AoC2022Support
 
 
 
 // MARK: - Protocol
 
 @objc
-public protocol RecordCountLimitish : metacosmModelish
+public protocol RecordCountLimitish : metacosmModelish, Modelish
 {
 	var value: UInt { get }
 }
@@ -23,8 +24,11 @@ public protocol RecordCountLimitish : metacosmModelish
 // MARK: - Model
 
 @objcMembers
-public class RecordCountLimit : metacosmModel, RecordCountLimitish
+public class RecordCountLimit : metacosmModel, Model, RecordCountLimitish
 {
+	public typealias ProtocolType = RecordCountLimitish
+	
+	
 	public override init() {
 		self.value = RecordCountLimit.defaultValue
 	}

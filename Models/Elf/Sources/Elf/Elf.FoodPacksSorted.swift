@@ -14,7 +14,7 @@ import AoC2022Support
 // MARK: - Protocol
 
 @objc
-public protocol FoodPacksSortedish : metacosmModelish
+public protocol FoodPacksSortedish : metacosmModelish, Modelish
 {
 	var foodPacks: [FoodPackish] { get }
 	
@@ -28,8 +28,11 @@ public protocol FoodPacksSortedish : metacosmModelish
 // MARK: - Model
 
 @objcMembers
-public class FoodPacksSorted : metacosmModel, FoodPacksSortedish
+public class FoodPacksSorted : metacosmModel, Model, FoodPacksSortedish
 {
+	public typealias ProtocolType = FoodPacksSortedish
+	
+	
 	private override init() {
 		fatalError("private init (comparator not specified)")
 	}

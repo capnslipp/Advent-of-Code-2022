@@ -15,7 +15,7 @@ import NilCoalescingAssignmentOperators
 // MARK: - Protocol
 
 @objc
-public protocol CalorieCountedFoodPacksish : metacosmModelish
+public protocol CalorieCountedFoodPacksish : Modelish, metacosmModelish
 {
 	var foodPacks: [FoodPackish] { get }
 	
@@ -34,8 +34,11 @@ public protocol CalorieCountedFoodPacksish : metacosmModelish
 // MARK: - Model
 
 @objcMembers
-public class CalorieCountedFoodPacks : metacosmModel, CalorieCountedFoodPacksish
+public class CalorieCountedFoodPacks : metacosmModel, Model, CalorieCountedFoodPacksish
 {
+	public typealias ProtocolType = CalorieCountedFoodPacksish
+	
+	
 	public override init() {
 		_foodPacks = .init(wrappedValue: [])
 		

@@ -14,7 +14,7 @@ import AoC2022Support
 // MARK: - Protocol
 
 @objc
-public protocol Roundish : metacosmModelish
+public protocol Roundish : metacosmModelish, Modelish
 {
 	var player1: Playerish { get }
 	var player1Outcome: VersusOutcomeish { get }
@@ -35,27 +35,39 @@ public protocol Roundish : metacosmModelish
 // MARK: - Model
 
 @objcMembers
-public class Round : metacosmModel, Roundish
+public class Round : metacosmModel, Model, Roundish
 {
-	public init(player1: Playerish, player2: Playerish) {
+	public typealias ProtocolType = Roundish
+	
+	
+	public init(player1: Playerish, player2: Playerish)
+	{
 		_player1 = .init(player1)
 		_player2 = .init(player2)
 		
-		_player1Outcome = .init(model: VersusOutcome())
-		_player2Outcome = .init(model: VersusOutcome())
+		defer {
+			_player1Outcome.owner = self
+			_player2Outcome.owner = self
+			_player1Score.owner = self
+			_player2Score.owner = self
+		}
 		
-		_player1Score = .init(model: Score())
-		_player2Score = .init(model: Score())
+		super.init()
 	}
 	
 	
 	@Surrogate public var player1: Playerish
-	@ModelSurrogate<VersusOutcome, VersusOutcomeish> public var player1Outcome: VersusOutcomeish
-	@ModelSurrogate<Score, Scoreish> public var player1Score: Scoreish
-	
 	@Surrogate public var player2: Playerish
-	@ModelSurrogate<VersusOutcome, VersusOutcomeish> public var player2Outcome: VersusOutcomeish
-	@ModelSurrogate<Score, Scoreish> public var player2Score: Scoreish
+	
+	private var _player1OutcomeModel = VersusOutcome()
+	@SurrogateOfModel(\Round._player1OutcomeModel) public var player1Outcome: VersusOutcomeish
+	private var _player2OutcomeModel = VersusOutcome()
+	@SurrogateOfModel(\Round._player2OutcomeModel) public var player2Outcome: VersusOutcomeish
+	
+	private var _player1ScoreModel = Score()
+	@SurrogateOfModel(\Round._player1ScoreModel) public var player1Score: Scoreish
+	private var _player2ScoreModel = Score()
+	@SurrogateOfModel(\Round._player2ScoreModel) public var player2Score: Scoreish
 	
 	public static let drawPlayerSentinel: Playerish = Player(name: "«Draw Player»", shape: Shape(.unset)).surrogate()
 	
@@ -101,18 +113,18 @@ public class Round : metacosmModel, Roundish
 			case .player2: return player2
 			case .draw: return Self.drawPlayerSentinel
 		}}()
-		_player1Outcome.model.value = { switch _winnerId! {
+		_player1OutcomeModel.value = { switch _winnerId! {
 			case .player1: return .won
 			case .player2: return .lost
 			case .draw: return .draw
 		}}()
-		_player2Outcome.model.value = { switch _winnerId! {
+		_player2OutcomeModel.value = { switch _winnerId! {
 			case .player1: return .lost
 			case .player2: return .won
 			case .draw: return .draw
 		}}()
-		_player1Score.model.value = _player1Outcome.model.score.value + self.player1.shape.score.value
-		_player2Score.model.value = _player2Outcome.model.score.value + self.player2.shape.score.value
+		_player1ScoreModel.value = _player1OutcomeModel.score.value + self.player1.shape.score.value
+		_player2ScoreModel.value = _player2OutcomeModel.score.value + self.player2.shape.score.value
 	}
 	
 	public func reset()
@@ -125,10 +137,10 @@ public class Round : metacosmModel, Roundish
 	{
 		_winnerId = nil
 		_currentWinnerPlayer = .noPlayerSentinel
-		_player1Outcome.model.value = .unset
-		_player2Outcome.model.value = .unset
-		_player1Score.model.value = 0
-		_player2Score.model.value = 0
+		_player1OutcomeModel.value = .unset
+		_player2OutcomeModel.value = .unset
+		_player1ScoreModel.value = 0
+		_player2ScoreModel.value = 0
 	}
 	
 	

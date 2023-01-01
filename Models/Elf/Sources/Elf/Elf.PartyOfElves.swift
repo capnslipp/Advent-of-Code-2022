@@ -15,7 +15,7 @@ import NilCoalescingAssignmentOperators
 // MARK: - Protocol
 
 @objc
-public protocol PartyOfElvesish : metacosmModelish
+public protocol PartyOfElvesish : metacosmModelish, Modelish
 {
 	var elves: [Elfish] { get }
 	
@@ -34,19 +34,23 @@ public protocol PartyOfElvesish : metacosmModelish
 // MARK: - Model
 
 @objcMembers
-public class PartyOfElves : metacosmModel, PartyOfElvesish
+public class PartyOfElves : metacosmModel, Model, PartyOfElvesish
 {
+	public typealias ProtocolType = PartyOfElvesish
+	
+	
 	public override convenience init() {
 		self.init(elves: [])
 	}
 	
-	public init(elves: [Elfish], takingCalorieCountedFoodPacks calorieCountedFoodPacksModel: CalorieCountedFoodPacks? = nil) {
+	public init(elves: [Elfish], takingCalorieCountedFoodPacks calorieCountedFoodPacksModel: CalorieCountedFoodPacks? = nil)
+	{
 		_elves = .init(elves)
 		_calorieCountedFoodPacksModel_lazyStorage =?? calorieCountedFoodPacksModel
 		
-		super.init()
+		defer { _calorieCountedFoodPacks.owner = self }
 		
-		_calorieCountedFoodPacks = .init(get: self._calorieCountedFoodPacksModel)
+		super.init()
 	}
 	
 	
@@ -81,7 +85,7 @@ public class PartyOfElves : metacosmModel, PartyOfElvesish
 		)
 		return _calorieCountedFoodPacksModel_lazyStorage!
 	}
-	@ModelSurrogate<CalorieCountedFoodPacks, CalorieCountedFoodPacksish> public var calorieCountedFoodPacks: CalorieCountedFoodPacksish
+	@SurrogateOfModel(\PartyOfElves._calorieCountedFoodPacksModel) public var calorieCountedFoodPacks: CalorieCountedFoodPacksish
 	
 	public var elfWithMostCaloriesInFoodPack: Elfish? {
 		_calorieCountedFoodPacksModel.foodPacksWithMostCalories.first?.owner!

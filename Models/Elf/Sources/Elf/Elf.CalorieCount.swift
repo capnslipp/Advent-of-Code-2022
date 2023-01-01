@@ -7,13 +7,14 @@
 
 import Foundation
 import metacosm
+import AoC2022Support
 
 
 
 // MARK: - Protocol
 
 @objc
-public protocol CalorieCountish : metacosmModelish
+public protocol CalorieCountish : Modelish, metacosmModelish
 {
 	var value: Int { get }
 }
@@ -23,8 +24,11 @@ public protocol CalorieCountish : metacosmModelish
 // MARK: - Model
 
 @objcMembers
-public class CalorieCount : metacosmModel, CalorieCountish
+public class CalorieCount : metacosmModel, Model, CalorieCountish
 {
+	public typealias ProtocolType = CalorieCountish
+	
+	
 	public override init() {}
 	
 	public init(value: Int) {

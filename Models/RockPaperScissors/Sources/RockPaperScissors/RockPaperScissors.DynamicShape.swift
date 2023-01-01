@@ -14,7 +14,7 @@ import AoC2022Support
 // MARK: - Protocol
 
 @objc
-public protocol DynamicShapeish : Shapeish
+public protocol DynamicShapeish : Shapeish, Modelish
 {
 	var shape: Shapeish { get }
 	
@@ -28,12 +28,18 @@ public protocol DynamicShapeish : Shapeish
 // MARK: - Model
 
 @objcMembers
-public class DynamicShape : metacosmModel, DynamicShapeish
+public class DynamicShape : metacosmModel, Model, DynamicShapeish
 {
-	public init(updator: @escaping () -> Value) {
+	public typealias ProtocolType = Shapeish
+	
+	
+	public init(updator: @escaping () -> Value)
+	{
 		_updator = updator
 		
-		_shape = .init(model: Shape())
+		defer { _shape.owner = self }
+		
+		super.init()
 	}
 	
 	
@@ -41,7 +47,8 @@ public class DynamicShape : metacosmModel, DynamicShapeish
 	var _isRunningUpdator: Bool = false
 	
 	
-	@ModelSurrogate<Shape, Shapeish> public var shape: Shapeish
+	private var _shapeModel = Shape()
+	@SurrogateOfModel(\DynamicShape._shapeModel) public var shape: Shapeish
 	
 	
 	// MARK: Value
@@ -49,8 +56,8 @@ public class DynamicShape : metacosmModel, DynamicShapeish
 	public typealias Value = Shape.Value
 	
 	private var _staticValue: Value {
-		get { _shape.model.value }
-		set { _shape.model.value = newValue }
+		get { _shapeModel.value }
+		set { _shapeModel.value = newValue }
 	}
 	
 	public var value: Value {
@@ -66,7 +73,7 @@ public class DynamicShape : metacosmModel, DynamicShapeish
 	
 	// MARK: Score
 	
-	public var score: ShapeScoreish { _shape.model.score }
+	public var score: ShapeScoreish { _shapeModel.score }
 	
 	
 	// MARK: metacosmModelish Conformance

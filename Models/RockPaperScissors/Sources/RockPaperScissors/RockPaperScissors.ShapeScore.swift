@@ -7,13 +7,14 @@
 
 import Foundation
 import metacosm
+import AoC2022Support
 
 
 
 // MARK: - Protocol
 
 @objc
-public protocol ShapeScoreish : Scoreish
+public protocol ShapeScoreish : Scoreish, Modelish
 {
 	var shape: Shapeish! { get }
 	
@@ -28,8 +29,11 @@ public protocol ShapeScoreish : Scoreish
 // MARK: - Model
 
 @objcMembers
-public class ShapeScore : metacosmModel, ShapeScoreish
+public class ShapeScore : metacosmModel, Model, ShapeScoreish
 {
+	public typealias ProtocolType = ShapeScoreish
+	
+	
 	public init(shape: Shapeish) {
 		_shape = shape
 	}
