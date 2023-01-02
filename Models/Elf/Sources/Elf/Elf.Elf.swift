@@ -63,7 +63,7 @@ public class Elf : metacosmModel, Elfish
 	}
 	
 	public override var isUnset: Bool {
-		return true
+		return false
 	}
 }
 
