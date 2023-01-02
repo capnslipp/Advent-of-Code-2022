@@ -10,8 +10,8 @@ import metacosm
 
 
 
-public typealias Surrogate = SurrogateWrapper
-@propertyWrapper public struct SurrogateWrapper<ModelishT>
+public typealias SurrogateProperty = SurrogatePropertyWrapper
+@propertyWrapper public struct SurrogatePropertyWrapper<ModelishT>
 	 where ModelishT : metacosmModelish
 {
 	public let storage: ModelishT

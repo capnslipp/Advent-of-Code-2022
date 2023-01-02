@@ -44,7 +44,7 @@ public class Player : metacosmModel, Model, Playerish
 	
 	public let name: String
 	
-	@Surrogate public var shape: Shapeish
+	@SurrogateProperty public var shape: Shapeish
 	
 	
 	// MARK: metacosmModelish Conformance

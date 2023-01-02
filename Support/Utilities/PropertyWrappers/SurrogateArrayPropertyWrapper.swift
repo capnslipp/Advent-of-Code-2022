@@ -10,8 +10,8 @@ import metacosm
 
 
 
-public typealias SurrogateArray = SurrogateArrayWrapper
-@propertyWrapper public struct SurrogateArrayWrapper<ModelishT> where ModelishT : metacosmModelish
+public typealias SurrogateArrayProperty = SurrogateArrayPropertyWrapper
+@propertyWrapper public struct SurrogateArrayPropertyWrapper<ModelishT> where ModelishT : metacosmModelish
 {
 	public var storage: [ModelishT]
 	

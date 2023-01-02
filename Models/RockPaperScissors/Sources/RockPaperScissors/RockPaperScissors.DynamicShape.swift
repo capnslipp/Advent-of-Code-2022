@@ -48,7 +48,7 @@ public class DynamicShape : metacosmModel, Model, DynamicShapeish
 	
 	
 	private var _shapeModel = Shape()
-	@SurrogateOfModel(\DynamicShape._shapeModel) public var shape: Shapeish
+	@ModelProperty(\DynamicShape._shapeModel) public var shape: Shapeish
 	
 	
 	// MARK: Value

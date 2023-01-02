@@ -78,7 +78,7 @@ public class Shape : metacosmModel, Model, Shapeish
 	// MARK: Score
 	
 	private lazy var _scoreModel = ShapeScore(shape: self.surrogate())
-	@SurrogateOfModel(\Shape._scoreModel) public var score: ShapeScoreish
+	@ModelProperty(\Shape._scoreModel) public var score: ShapeScoreish
 	
 	
 	// MARK: metacosmModelish Conformance

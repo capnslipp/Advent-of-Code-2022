@@ -82,7 +82,7 @@ public class VersusOutcome : metacosmModel, Model, VersusOutcomeish
 	// MARK: Score
 	
 	private lazy var _scoreModel: VersusOutcomeScore = VersusOutcomeScore(versusOutcome: self.surrogate())
-	@SurrogateOfModel(\VersusOutcome._scoreModel) public var score: VersusOutcomeScoreish
+	@ModelProperty(\VersusOutcome._scoreModel) public var score: VersusOutcomeScoreish
 	
 	
 	// MARK: metacosmModelish Conformance

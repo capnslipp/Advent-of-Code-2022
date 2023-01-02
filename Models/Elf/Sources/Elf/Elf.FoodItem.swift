@@ -43,7 +43,7 @@ public class FoodItem : metacosmModel, Model, FoodItemish
 	}
 	
 	
-	@Surrogate public var calorieCount: CalorieCountish
+	@SurrogateProperty public var calorieCount: CalorieCountish
 	
 	
 	// MARK: metacosmModelish Conformance

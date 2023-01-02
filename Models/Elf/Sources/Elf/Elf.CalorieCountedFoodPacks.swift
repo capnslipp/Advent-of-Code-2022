@@ -56,7 +56,7 @@ public class CalorieCountedFoodPacks : metacosmModel, Model, CalorieCountedFoodP
 	
 	// MARK: `FoodPackish` Array
 	
-	@SurrogateArray public var foodPacks: [FoodPackish] {
+	@SurrogateArrayProperty public var foodPacks: [FoodPackish] {
 		didSet {
 			_foodPacksSortedByMostCaloriesModel_lazyStorage?.replace(foodPacks: _foodPacks.storage)
 			_foodPacksSortedByLeastCaloriesModel_lazyStorage?.replace(foodPacks: _foodPacks.storage)
@@ -78,9 +78,9 @@ public class CalorieCountedFoodPacks : metacosmModel, Model, CalorieCountedFoodP
 	
 	// MARK: Limits
 	
-	@Surrogate public var mostLimit: RecordCountLimitish
+	@SurrogateProperty public var mostLimit: RecordCountLimitish
 	
-	@Surrogate public var leastLimit: RecordCountLimitish
+	@SurrogateProperty public var leastLimit: RecordCountLimitish
 	
 	
 	// MARK: Calculated Most/Least Info

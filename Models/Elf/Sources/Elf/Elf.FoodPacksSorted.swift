@@ -51,7 +51,7 @@ public class FoodPacksSorted : metacosmModel, Model, FoodPacksSortedish
 	
 	// MARK: `FoodPackish` Array
 	
-	@SurrogateArray public var foodPacks: [FoodPackish] {
+	@SurrogateArrayProperty public var foodPacks: [FoodPackish] {
 		didSet { queueRecalcOfSortedFoodPacks() }
 	}
 	
@@ -69,7 +69,7 @@ public class FoodPacksSorted : metacosmModel, Model, FoodPacksSortedish
 	
 	// MARK: Limit
 	
-	@Surrogate public var limit: RecordCountLimitish
+	@SurrogateProperty public var limit: RecordCountLimitish
 	
 	
 	// MARK: Calculated Most/Least Info

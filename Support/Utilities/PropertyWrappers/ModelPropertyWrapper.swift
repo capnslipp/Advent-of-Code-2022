@@ -10,8 +10,8 @@ import metacosm
 
 
 
-public typealias SurrogateOfModel = SurrogateOfModelWrapper
-@propertyWrapper public struct SurrogateOfModelWrapper<OwnerT, ModelishT>
+public typealias ModelProperty = ModelPropertyWrapper
+@propertyWrapper public struct ModelPropertyWrapper<OwnerT, ModelishT>
 	 where OwnerT : AnyObject, ModelishT : metacosmModelish
 {
 	public unowned(unsafe) var owner: OwnerT!

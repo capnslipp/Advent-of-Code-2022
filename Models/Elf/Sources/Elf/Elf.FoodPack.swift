@@ -46,7 +46,7 @@ public class FoodPack : metacosmModel, Model, FoodPackish
 	public var owner: Elfish?
 	
 	
-	@SurrogateArray public var foodItems: [FoodItemish]
+	@SurrogateArrayProperty public var foodItems: [FoodItemish]
 	
 	public var isEmpty: Bool { _foodItems.storage.isEmpty }
 	

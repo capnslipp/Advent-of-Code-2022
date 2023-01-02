@@ -56,18 +56,18 @@ public class Round : metacosmModel, Model, Roundish
 	}
 	
 	
-	@Surrogate public var player1: Playerish
-	@Surrogate public var player2: Playerish
+	@SurrogateProperty public var player1: Playerish
+	@SurrogateProperty public var player2: Playerish
 	
 	private var _player1OutcomeModel = VersusOutcome()
-	@SurrogateOfModel(\Round._player1OutcomeModel) public var player1Outcome: VersusOutcomeish
+	@ModelProperty(\Round._player1OutcomeModel) public var player1Outcome: VersusOutcomeish
 	private var _player2OutcomeModel = VersusOutcome()
-	@SurrogateOfModel(\Round._player2OutcomeModel) public var player2Outcome: VersusOutcomeish
+	@ModelProperty(\Round._player2OutcomeModel) public var player2Outcome: VersusOutcomeish
 	
 	private var _player1ScoreModel = Score()
-	@SurrogateOfModel(\Round._player1ScoreModel) public var player1Score: Scoreish
+	@ModelProperty(\Round._player1ScoreModel) public var player1Score: Scoreish
 	private var _player2ScoreModel = Score()
-	@SurrogateOfModel(\Round._player2ScoreModel) public var player2Score: Scoreish
+	@ModelProperty(\Round._player2ScoreModel) public var player2Score: Scoreish
 	
 	public static let drawPlayerSentinel: Playerish = Player(name: "«Draw Player»", shape: Shape(.unset)).surrogate()
 	

@@ -63,12 +63,12 @@ public class Elf : metacosmModel, Model, Elfish
 	public let name: String
 	
 	private var _foodPackModel: FoodPack
-	@SurrogateOfModel(\Elf._foodPackModel) public var foodPack: FoodPackish
+	@ModelProperty(\Elf._foodPackModel) public var foodPack: FoodPackish
 	
 	
 	// MARK: RockPaperScissors.Playerish Conformance
 	
-	@Surrogate public var shape: RockPaperScissors.Shapeish
+	@SurrogateProperty public var shape: RockPaperScissors.Shapeish
 	
 	
 	// MARK: metacosmModelish Conformance

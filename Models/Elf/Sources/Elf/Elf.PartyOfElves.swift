@@ -54,7 +54,7 @@ public class PartyOfElves : metacosmModel, Model, PartyOfElvesish
 	}
 	
 	
-	@SurrogateArray public var elves: [Elfish]
+	@SurrogateArrayProperty public var elves: [Elfish]
 	
 	public var isEmpty: Bool { _elves.storage.isEmpty }
 	
@@ -85,7 +85,7 @@ public class PartyOfElves : metacosmModel, Model, PartyOfElvesish
 		)
 		return _calorieCountedFoodPacksModel_lazyStorage!
 	}
-	@SurrogateOfModel(\PartyOfElves._calorieCountedFoodPacksModel) public var calorieCountedFoodPacks: CalorieCountedFoodPacksish
+	@ModelProperty(\PartyOfElves._calorieCountedFoodPacksModel) public var calorieCountedFoodPacks: CalorieCountedFoodPacksish
 	
 	public var elfWithMostCaloriesInFoodPack: Elfish? {
 		_calorieCountedFoodPacksModel.foodPacksWithMostCalories.first?.owner!
