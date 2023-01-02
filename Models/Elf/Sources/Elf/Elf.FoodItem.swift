@@ -33,12 +33,13 @@ public class FoodItem : metacosmModel, Model, FoodItemish
 		fatalError("calorieCount not specified")
 	}
 	
-	public init(calorieCount: CalorieCountish) {
+	public init(calorieCount: CalorieCountish)
+	{
 		_calorieCount = .init(calorieCount)
 	}
 	
-	public init(calorieCountValue: Int) {
-		_calorieCount = .init(CalorieCount(value: calorieCountValue).surrogate())
+	public convenience init(calorieCountValue: Int) {
+		self.init(calorieCount: CalorieCount(value: calorieCountValue).surrogate())
 	}
 	
 	

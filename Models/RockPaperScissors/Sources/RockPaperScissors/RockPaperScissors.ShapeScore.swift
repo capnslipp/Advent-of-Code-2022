@@ -34,11 +34,13 @@ public class ShapeScore : metacosmModel, Model, ShapeScoreish
 	public typealias ProtocolType = ShapeScoreish
 	
 	
-	public init(shape: Shapeish) {
+	public init(shape: Shapeish)
+	{
 		_shape = shape
 	}
 	
-	func willDie() {
+	func willDie()
+	{
 		// Hack to subvert bug in metacosm
 		_shape = nil
 	}

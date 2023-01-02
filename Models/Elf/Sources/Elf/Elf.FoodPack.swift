@@ -34,7 +34,8 @@ public class FoodPack : metacosmModel, Model, FoodPackish
 	public typealias ProtocolType = FoodPackish
 	
 	
-	public init(owner: Elfish? = nil, foodItems: [FoodItemish] = []) {
+	public init(owner: Elfish? = nil, foodItems: [FoodItemish] = [])
+	{
 		self.owner = owner
 		_foodItems = .init(foodItems)
 		

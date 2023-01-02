@@ -34,8 +34,10 @@ public class Player : metacosmModel, Model, Playerish
 	public static let noPlayerSentinel: Playerish = Player(name: "«No Player»", shape: Shape(.unset)).surrogate()
 	
 	
-	public init(name: String, shape: Shapeish) {
+	public init(name: String, shape: Shapeish)
+	{
 		self.name = name
+		
 		_shape = .init(shape)
 	}
 	

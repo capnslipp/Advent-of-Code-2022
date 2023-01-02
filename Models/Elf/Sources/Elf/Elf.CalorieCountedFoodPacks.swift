@@ -39,14 +39,12 @@ public class CalorieCountedFoodPacks : metacosmModel, Model, CalorieCountedFoodP
 	public typealias ProtocolType = CalorieCountedFoodPacksish
 	
 	
-	public override init() {
-		_foodPacks = .init(wrappedValue: [])
-		
-		_mostLimit = .init(wrappedValue: RecordCountLimit())
-		_leastLimit = .init(wrappedValue: RecordCountLimit())
+	public convenience override init() {
+		self.init(foodPacks: [])
 	}
 	
-	public init(foodPacks: [FoodPackish], mostLimit: RecordCountLimitish? = nil, leastLimit: RecordCountLimitish? = nil) {
+	public init(foodPacks: [FoodPackish], mostLimit: RecordCountLimitish? = nil, leastLimit: RecordCountLimitish? = nil)
+	{
 		_foodPacks = .init(wrappedValue: foodPacks)
 		
 		_mostLimit = .init(wrappedValue: mostLimit ?? RecordCountLimit())

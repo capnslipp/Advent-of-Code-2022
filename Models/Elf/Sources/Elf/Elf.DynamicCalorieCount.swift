@@ -28,7 +28,8 @@ public class DynamicCalorieCount : metacosmModel, Model, DynamicCalorieCountish
 	public typealias ProtocolType = DynamicCalorieCountish
 	
 	
-	public init(updator: @escaping ()->Int) {
+	public init(updator: @escaping ()->Int)
+	{
 		_updator = updator
 	}
 	

@@ -31,7 +31,8 @@ public class CalorieCount : metacosmModel, Model, CalorieCountish
 	
 	public override init() {}
 	
-	public init(value: Int) {
+	public init(value: Int)
+	{
 		self.value = value
 	}
 	

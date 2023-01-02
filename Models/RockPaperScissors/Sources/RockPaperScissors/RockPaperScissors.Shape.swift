@@ -35,8 +35,10 @@ public class Shape : metacosmModel, Model, Shapeish
 		self.init(value: .unset)
 	}
 	
-	public init(value: Value) {
+	public init(value: Value)
+	{
 		self.value = value
+		
 		defer { _score.owner = self }
 		
 		super.init()

@@ -33,40 +33,30 @@ public class Elf : metacosmModel, Model, Elfish
 	public typealias ProtocolType = Elfish
 	
 	
-	public override init() {
-		self.name = ""
-		
-		_foodPackModel = FoodPack(foodItems: [])
-		defer { _foodPackModel.owner = self.surrogate() }
-		defer { _foodPack.owner = self }
-		
-		_shape = .init(Shape(.unset).surrogate())
-		
-		super.init()
-	}
-	
-	public init(name: String, takingFoodPack foodPackModel: FoodPack) {
+	private init(name: String, takingFoodPack foodPackModel: FoodPack? = nil, shape: Shapeish? = nil)
+	{
 		self.name = name
 		
-		_foodPackModel = foodPackModel
+		_foodPackModel = foodPackModel ?? FoodPack(foodItems: [])
 		defer { _foodPackModel.owner = self.surrogate() }
 		defer { _foodPack.owner = self }
 		
-		_shape = .init(Shape(.unset).surrogate())
-		
-		super.init()
-	}
-	
-	public init(name: String, shape: Shapeish) {
-		self.name = name
-		
-		_foodPackModel = FoodPack(foodItems: [])
-		defer { _foodPackModel.owner = self.surrogate() }
-		defer { _foodPack.owner = self }
-		
+		let shape = shape ?? Shape(.unset).surrogate()
 		_shape = .init(shape)
 		
 		super.init()
+	}
+	
+	public convenience override init() {
+		self.init(name: "")
+	}
+	
+	public convenience init(name: String, takingFoodPack foodPackModel: FoodPack) {
+		self.init(name: name, takingFoodPack: foodPackModel, shape: nil)
+	}
+	
+	public convenience init(name: String, shape: Shapeish) {
+		self.init(name: name, takingFoodPack: nil, shape: shape)
 	}
 	
 	

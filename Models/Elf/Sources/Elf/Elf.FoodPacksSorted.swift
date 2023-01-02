@@ -37,7 +37,8 @@ public class FoodPacksSorted : metacosmModel, Model, FoodPacksSortedish
 		fatalError("private init (comparator not specified)")
 	}
 	
-	public init(foodPacks: [FoodPackish], comparator: @escaping FoodPackComparator, limit: RecordCountLimitish? = nil) {
+	public init(foodPacks: [FoodPackish], comparator: @escaping FoodPackComparator, limit: RecordCountLimitish? = nil)
+	{
 		_foodPacks = .init(foodPacks)
 		defer { queueRecalcOfSortedFoodPacks() }
 		

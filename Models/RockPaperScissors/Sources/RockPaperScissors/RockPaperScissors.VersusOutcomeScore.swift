@@ -34,11 +34,13 @@ public class VersusOutcomeScore : metacosmModel, Model, VersusOutcomeScoreish
 	public typealias ProtocolType = VersusOutcomeScoreish
 	
 	
-	public init(versusOutcome: VersusOutcomeish) {
+	public init(versusOutcome: VersusOutcomeish)
+	{
 		_versusOutcome = versusOutcome
 	}
 	
-	func willDie() {
+	func willDie()
+	{
 		// Hack to subvert bug in metacosm
 		_versusOutcome = nil
 	}

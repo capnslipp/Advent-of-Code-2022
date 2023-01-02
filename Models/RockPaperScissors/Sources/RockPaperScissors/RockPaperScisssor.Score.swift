@@ -31,7 +31,8 @@ public class Score : metacosmModel, Model, Scoreish
 	
 	public override init() {}
 	
-	public init(value: Value) {
+	public init(value: Value)
+	{
 		self.value = value
 	}
 	
