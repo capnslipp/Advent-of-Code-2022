@@ -89,6 +89,7 @@ public class Round : metacosmModel, Roundish
 			fatalError("Round has already been `play()`ed— `reset()` the round first before `play()`ing again.")
 		}
 		calculateWinner()
+		_state = .played
 	}
 	
 	private func calculateWinner()
@@ -120,6 +121,7 @@ public class Round : metacosmModel, Roundish
 	public func reset()
 	{
 		resetWinner()
+		_state = .resetted
 	}
 	
 	private func resetWinner()
