@@ -14,6 +14,8 @@
 		FA33C5AE2958AA150024D146 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAE70FD2957243200A6C0DC /* StringExtensions.swift */; };
 		FAAE70F629571FBE00A6C0DC /* RockPaperScissors in Frameworks */ = {isa = PBXBuildFile; productRef = FAAE70F529571FBE00A6C0DC /* RockPaperScissors */; };
 		FAAE70FE2957243200A6C0DC /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAE70FD2957243200A6C0DC /* StringExtensions.swift */; };
+		FAB3DD2029638FD100B17E8C /* input.example in CopyFiles */ = {isa = PBXBuildFile; fileRef = FAE423DC29571C4900410329 /* input.example */; };
+		FAB3DD2129638FD300B17E8C /* input in CopyFiles */ = {isa = PBXBuildFile; fileRef = FAE423DB29571BC800410329 /* input */; };
 		FAE423DA29571B3200410329 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE423CA29571AE900410329 /* main.swift */; };
 		FAE423DD29571C6600410329 /* input.example in CopyFiles */ = {isa = PBXBuildFile; fileRef = FAE423DC29571C4900410329 /* input.example */; };
 		FAE423DE29571C6600410329 /* input in CopyFiles */ = {isa = PBXBuildFile; fileRef = FAE423DB29571BC800410329 /* input */; };
@@ -22,12 +24,14 @@
 /* Begin PBXCopyFilesBuildPhase section */
 		FA33C5A12958A98D0024D146 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
+			buildActionMask = 12;
+			dstPath = "";
+			dstSubfolderSpec = 16;
 			files = (
+				FAB3DD2029638FD100B17E8C /* input.example in CopyFiles */,
+				FAB3DD2129638FD300B17E8C /* input in CopyFiles */,
 			);
-			runOnlyForDeploymentPostprocessing = 1;
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 		FAE423D129571B2100410329 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
