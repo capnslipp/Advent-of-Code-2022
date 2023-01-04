@@ -10,6 +10,7 @@
 		FA090AC02949EC580056EAAE /* With in Frameworks */ = {isa = PBXBuildFile; productRef = FA090ABF2949EC580056EAAE /* With */; };
 		FA090AC32949EC720056EAAE /* NilCoalescingAssignmentOperators in Frameworks */ = {isa = PBXBuildFile; productRef = FA090AC22949EC720056EAAE /* NilCoalescingAssignmentOperators */; };
 		FA3BB4032949E44A00D860E2 /* Elf in Frameworks */ = {isa = PBXBuildFile; productRef = FA3BB4022949E44A00D860E2 /* Elf */; };
+		FA40FDCE2965125A006D2B1E /* Day1.Puzzle1.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA40FDCD2965125A006D2B1E /* Day1.Puzzle1.swift */; };
 		FA57885B29494887005793A3 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA57885A29494887005793A3 /* main.swift */; };
 		FA678107296686DF00ED7602 /* AoC2022Support in Frameworks */ = {isa = PBXBuildFile; productRef = FA678106296686DF00ED7602 /* AoC2022Support */; };
 		FA678109296686F400ED7602 /* AoC2022Support in Frameworks */ = {isa = PBXBuildFile; productRef = FA678108296686F400ED7602 /* AoC2022Support */; };
@@ -17,6 +18,7 @@
 		FA8E962A294ABBF3000AE97D /* Elf in Frameworks */ = {isa = PBXBuildFile; productRef = FA8E9629294ABBF3000AE97D /* Elf */; };
 		FA8E962C294ABBF8000AE97D /* With in Frameworks */ = {isa = PBXBuildFile; productRef = FA8E962B294ABBF8000AE97D /* With */; };
 		FA8E962E294ABBFB000AE97D /* NilCoalescingAssignmentOperators in Frameworks */ = {isa = PBXBuildFile; productRef = FA8E962D294ABBFB000AE97D /* NilCoalescingAssignmentOperators */; };
+		FAB76E252965309A00803704 /* Day1.Puzzle2.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB76E242965309A00803704 /* Day1.Puzzle2.swift */; };
 		FAE423DF29571CB300410329 /* input.example in CopyFiles */ = {isa = PBXBuildFile; fileRef = FAE47EAD294AB08100419275 /* input.example */; };
 		FAE423E029571CB500410329 /* input in CopyFiles */ = {isa = PBXBuildFile; fileRef = FAE47EAB294AB02100419275 /* input */; };
 		FAE47EAC294AB03300419275 /* input in CopyFiles */ = {isa = PBXBuildFile; fileRef = FAE47EAB294AB02100419275 /* input */; };
@@ -49,10 +51,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		FA40FDCD2965125A006D2B1E /* Day1.Puzzle1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day1.Puzzle1.swift; sourceTree = "<group>"; };
 		FA57885729494887005793A3 /* Day1-Puzzle1 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Day1-Puzzle1"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA57885A29494887005793A3 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		FA8E9622294ABBAE000AE97D /* Day1-Puzzle2 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Day1-Puzzle2"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA8E9624294ABBAE000AE97D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		FAB76E242965309A00803704 /* Day1.Puzzle2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day1.Puzzle2.swift; sourceTree = "<group>"; };
 		FAE47EAB294AB02100419275 /* input */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = input; sourceTree = "<group>"; };
 		FAE47EAD294AB08100419275 /* input.example */ = {isa = PBXFileReference; lastKnownFileType = text; path = input.example; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -115,6 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				FA57885A29494887005793A3 /* main.swift */,
+				FA40FDCD2965125A006D2B1E /* Day1.Puzzle1.swift */,
 			);
 			path = Puzzle1;
 			sourceTree = "<group>";
@@ -123,6 +128,7 @@
 			isa = PBXGroup;
 			children = (
 				FA8E9624294ABBAE000AE97D /* main.swift */,
+				FAB76E242965309A00803704 /* Day1.Puzzle2.swift */,
 			);
 			path = Puzzle2;
 			sourceTree = "<group>";
@@ -223,6 +229,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA57885B29494887005793A3 /* main.swift in Sources */,
+				FA40FDCE2965125A006D2B1E /* Day1.Puzzle1.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -230,6 +237,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAB76E252965309A00803704 /* Day1.Puzzle2.swift in Sources */,
 				FA8E9625294ABBAE000AE97D /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
