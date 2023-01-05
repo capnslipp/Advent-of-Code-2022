@@ -23,11 +23,4 @@
    <FileRef
       location = "group:Support">
    </FileRef>
-   <Group
-      location = "container:"
-      name = "Frameworks and Libraries">
-      <FileRef
-         location = "group:../metacosm/metacosm.xcodeproj">
-      </FileRef>
-   </Group>
 </Workspace>

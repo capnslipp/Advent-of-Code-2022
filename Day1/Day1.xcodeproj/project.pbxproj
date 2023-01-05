@@ -11,6 +11,8 @@
 		FA090AC32949EC720056EAAE /* NilCoalescingAssignmentOperators in Frameworks */ = {isa = PBXBuildFile; productRef = FA090AC22949EC720056EAAE /* NilCoalescingAssignmentOperators */; };
 		FA3BB4032949E44A00D860E2 /* Elf in Frameworks */ = {isa = PBXBuildFile; productRef = FA3BB4022949E44A00D860E2 /* Elf */; };
 		FA57885B29494887005793A3 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA57885A29494887005793A3 /* main.swift */; };
+		FA678107296686DF00ED7602 /* AoC2022Support in Frameworks */ = {isa = PBXBuildFile; productRef = FA678106296686DF00ED7602 /* AoC2022Support */; };
+		FA678109296686F400ED7602 /* AoC2022Support in Frameworks */ = {isa = PBXBuildFile; productRef = FA678108296686F400ED7602 /* AoC2022Support */; };
 		FA8E9625294ABBAE000AE97D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8E9624294ABBAE000AE97D /* main.swift */; };
 		FA8E962A294ABBF3000AE97D /* Elf in Frameworks */ = {isa = PBXBuildFile; productRef = FA8E9629294ABBF3000AE97D /* Elf */; };
 		FA8E962C294ABBF8000AE97D /* With in Frameworks */ = {isa = PBXBuildFile; productRef = FA8E962B294ABBF8000AE97D /* With */; };
@@ -61,6 +63,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA090AC32949EC720056EAAE /* NilCoalescingAssignmentOperators in Frameworks */,
+				FA678109296686F400ED7602 /* AoC2022Support in Frameworks */,
 				FA090AC02949EC580056EAAE /* With in Frameworks */,
 				FA3BB4032949E44A00D860E2 /* Elf in Frameworks */,
 			);
@@ -70,6 +73,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA678107296686DF00ED7602 /* AoC2022Support in Frameworks */,
 				FA8E962E294ABBFB000AE97D /* NilCoalescingAssignmentOperators in Frameworks */,
 				FA8E962C294ABBF8000AE97D /* With in Frameworks */,
 				FA8E962A294ABBF3000AE97D /* Elf in Frameworks */,
@@ -143,6 +147,7 @@
 				FA090ABF2949EC580056EAAE /* With */,
 				FA090AC22949EC720056EAAE /* NilCoalescingAssignmentOperators */,
 				FA3BB4022949E44A00D860E2 /* Elf */,
+				FA678108296686F400ED7602 /* AoC2022Support */,
 			);
 			productName = "Day1-Puzzle1";
 			productReference = FA57885729494887005793A3 /* Day1-Puzzle1 */;
@@ -165,6 +170,7 @@
 				FA8E9629294ABBF3000AE97D /* Elf */,
 				FA8E962B294ABBF8000AE97D /* With */,
 				FA8E962D294ABBFB000AE97D /* NilCoalescingAssignmentOperators */,
+				FA678106296686DF00ED7602 /* AoC2022Support */,
 			);
 			productName = "Day1-Puzzle2";
 			productReference = FA8E9622294ABBAE000AE97D /* Day1-Puzzle2 */;
@@ -445,6 +451,14 @@
 		FA3BB4022949E44A00D860E2 /* Elf */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Elf;
+		};
+		FA678106296686DF00ED7602 /* AoC2022Support */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AoC2022Support;
+		};
+		FA678108296686F400ED7602 /* AoC2022Support */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AoC2022Support;
 		};
 		FA8E9629294ABBF3000AE97D /* Elf */ = {
 			isa = XCSwiftPackageProductDependency;

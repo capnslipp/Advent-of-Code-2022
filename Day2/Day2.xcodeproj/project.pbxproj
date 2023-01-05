@@ -16,6 +16,8 @@
 		FAAE70FE2957243200A6C0DC /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAE70FD2957243200A6C0DC /* StringExtensions.swift */; };
 		FAB3DD2029638FD100B17E8C /* input.example in CopyFiles */ = {isa = PBXBuildFile; fileRef = FAE423DC29571C4900410329 /* input.example */; };
 		FAB3DD2129638FD300B17E8C /* input in CopyFiles */ = {isa = PBXBuildFile; fileRef = FAE423DB29571BC800410329 /* input */; };
+		FAC8BFAB2966886E00D36E39 /* AoC2022Support in Frameworks */ = {isa = PBXBuildFile; productRef = FAC8BFAA2966886E00D36E39 /* AoC2022Support */; };
+		FAC8BFAF2966887800D36E39 /* AoC2022Support in Frameworks */ = {isa = PBXBuildFile; productRef = FAC8BFAE2966887800D36E39 /* AoC2022Support */; };
 		FAE423DA29571B3200410329 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE423CA29571AE900410329 /* main.swift */; };
 		FAE423DD29571C6600410329 /* input.example in CopyFiles */ = {isa = PBXBuildFile; fileRef = FAE423DC29571C4900410329 /* input.example */; };
 		FAE423DE29571C6600410329 /* input in CopyFiles */ = {isa = PBXBuildFile; fileRef = FAE423DB29571BC800410329 /* input */; };
@@ -62,6 +64,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA33C5AB2958A9AF0024D146 /* Elf in Frameworks */,
+				FAC8BFAF2966887800D36E39 /* AoC2022Support in Frameworks */,
 				FA33C5AD2958A9B30024D146 /* RockPaperScissors in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -71,6 +74,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA33C59E29588AAE0024D146 /* Elf in Frameworks */,
+				FAC8BFAB2966886E00D36E39 /* AoC2022Support in Frameworks */,
 				FAAE70F629571FBE00A6C0DC /* RockPaperScissors in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -159,6 +163,7 @@
 			packageProductDependencies = (
 				FA33C5AA2958A9AF0024D146 /* Elf */,
 				FA33C5AC2958A9B30024D146 /* RockPaperScissors */,
+				FAC8BFAE2966887800D36E39 /* AoC2022Support */,
 			);
 			productName = Puzzle2;
 			productReference = FA33C5A32958A98D0024D146 /* Day2-Puzzle2 */;
@@ -180,6 +185,7 @@
 			packageProductDependencies = (
 				FAAE70F529571FBE00A6C0DC /* RockPaperScissors */,
 				FA33C59D29588AAE0024D146 /* Elf */,
+				FAC8BFAA2966886E00D36E39 /* AoC2022Support */,
 			);
 			productName = "Day2-Puzzle1";
 			productReference = FAE423D329571B2100410329 /* Day2-Puzzle1 */;
@@ -445,6 +451,14 @@
 		FAAE70F529571FBE00A6C0DC /* RockPaperScissors */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = RockPaperScissors;
+		};
+		FAC8BFAA2966886E00D36E39 /* AoC2022Support */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AoC2022Support;
+		};
+		FAC8BFAE2966887800D36E39 /* AoC2022Support */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AoC2022Support;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
