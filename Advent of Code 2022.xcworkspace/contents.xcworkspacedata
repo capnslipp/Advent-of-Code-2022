@@ -7,6 +7,9 @@
    <FileRef
       location = "group:Day2/Day2.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:Day3/Day3.xcodeproj">
+   </FileRef>
    <Group
       location = "container:Models"
       name = "Models">
